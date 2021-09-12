@@ -1,0 +1,30 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: Setup project
+    init: >
+      npm install --global pnpm &&
+      curl https://raw.githubusercontent.com/IgnisDa/printr/main/get-printr.sh | sh -s -- --yes &&
+      git config --global pull.rebase true &&
+      gp sync-done setup
+  - name: Setup dependencies
+    init: gp sync-await setup
+    command: >
+      just setup &&
+      gp sync-done deps
+  - name: Run servers
+    init: gp sync-await deps
+    command: just
+
+ports:
+  - port: 8000
+    visibility: public
+
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint
+    - eamodio.gitlens
+    - mhutchie.git-graph
+    - cweijan.vscode-database-client2
+    - esbenp.prettier-vscode
