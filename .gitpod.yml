@@ -12,6 +12,7 @@ tasks:
     init: gp sync-await setup
     command: >
       just setup &&
+      just db-seed &&
       gp sync-done deps
   - name: Run servers
     init: gp sync-await deps

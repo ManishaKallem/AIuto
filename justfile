@@ -9,3 +9,9 @@ default:
 setup:
     #!/usr/bin/env bash
     cd "{{backend_folder}}" && pnpm install && pnpm prisma db push
+
+# Seed the database with fake data
+db-seed:
+    #!/usr/bin/env bash
+    cd "{{backend_folder}}" && pnpm prisma db seed
+
