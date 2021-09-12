@@ -1,6 +1,12 @@
 {
     "recommendations": [
         "ms-vscode.vscode-typescript-next",
-        "rbbit.typescript-hero"
+        "rbbit.typescript-hero",
+        "dbaeumer.vscode-eslint",
+        "mtxr.sqltools",
+        "esbenp.prettier-vscode",
+        "mtxr.sqltools-driver-pg",
+        "prisma.prisma",
+        "wakatime.vscode-wakatime"
     ]
 }
