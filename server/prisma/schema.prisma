@@ -7,12 +7,97 @@ datasource db {
 }
 
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 model User {
-  id       String @id @default(cuid())
-  username String @unique
-  email    String @unique
-  password String
+  id        String      @id @default(cuid())
+  username  String      @unique
+  email     String      @unique
+  password  String
+  Journal   Journal[]
+  MoodTrack MoodEntry[]
+  Schedule  Schedule[]
+}
+
+// ## Journal App ##
+
+/// Model to todos
+model Journal {
+  id          String        @id @default(cuid())
+  completed   Boolean       @default(false)
+  title       String
+  description String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  ActivityLog ActivityLog[]
+  user        User          @relation(fields: [userId], references: [id])
+  userId      String
+}
+
+/// Activities that have already been completed
+// This will be generated automatically from Journals and Schedulers on the backend
+model ActivityLog {
+  id         Int       @id @default(autoincrement())
+  startedAt  DateTime?
+  finishedAt DateTime?
+  journal    Journal   @relation(fields: [journalId], references: [id])
+  journalId  String
+}
+
+// An user can have only one each day
+/// This will keep track of the user's mood on a daily basis
+model MoodEntry {
+  id     Int      @id @default(autoincrement())
+  on     DateTime @default(now()) @db.Date
+  mood   Mood     @default(ORDINARY)
+  user   User     @relation(fields: [userId], references: [id])
+  userId String
+
+  @@unique([userId, on])
+}
+
+/// The list of emotions a user is allowed to feel
+enum Mood {
+  HAPPY // 5
+  SAD // 4
+  ORDINARY // 3
+  ANGRY // 2
+  DISTRESSED // 1
+}
+
+// This is synonymous to an alarm
+/// This will show up in the user's timeline/schedule
+model Schedule {
+  id           Int        @id @default(autoincrement())
+  user         User       @relation(fields: [userId], references: [id])
+  userId       String
+  label        String
+  // the time at which the user would like to be reminded at
+  remindAt     DateTime   @db.Time
+  // the time duration after which the schedule should repeat
+  repeatEach   RepeatEach @default(ONCE)
+  // list of all the days on which to repeat
+  // TODO: Use postgres EXCLUSION criteria to ensure that `if repeatEach != CUSTOM, then selectedDays.length == 0`
+  selectedDays Day[]
+  // TODO: remind x minutes before the actual event
+  remindBefore Int? // FIXME: change this to interval field
+}
+
+enum Day {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum RepeatEach {
+  ONCE
+  DAILY
+  WEEKDAYS
+  WEEKENDS
+  CUSTOM
 }
