@@ -13,6 +13,7 @@ sudo chown -R $USERNAME:$USERNAME $HOME/.cache
 # Install the dependencies of each micro-service
 PROJECT_FOLDER="/workspace/AIuto"
 cd "$PROJECT_FOLDER"
+just setup
 
 for filename in $PROJECT_FOLDER/.devcontainer/scripts/private-*; do
     [ -e "$filename" ] || continue
