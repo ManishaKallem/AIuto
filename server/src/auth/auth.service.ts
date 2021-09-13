@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserDto } from 'src/user/dto/user.dto';
 import { UserService } from 'src/user/user.service';
 import { LoginResult } from './dto/login-user.result';
 import { LoginUserInput } from './dto/login-user.input';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { checkPassword } from 'src/user/utils';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +17,7 @@ export class AuthService {
   async validateUserByPassword(loginAttempt: LoginUserInput) {
     // This will be used for the initial login
 
-    let userToAttempt;
+    let userToAttempt: User;
     if (loginAttempt.username) {
       userToAttempt = await this.userService.getUserByUsername(
         loginAttempt.username,
@@ -55,7 +55,7 @@ export class AuthService {
     return user ? user : undefined;
   }
 
-  createJwt(user: UserDto): string {
+  createJwt(user: User): string {
     const data: JwtPayload = {
       id: user.id,
       username: user.username,
