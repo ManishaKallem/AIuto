@@ -7,6 +7,7 @@ specifiers:
   '@nestjs/core': ^8.0.6
   '@nestjs/graphql': ^9.0.4
   '@nestjs/jwt': ^8.0.0
+  '@nestjs/mapped-types': '*'
   '@nestjs/passport': ^8.0.1
   '@nestjs/platform-express': ^8.0.6
   '@nestjs/schematics': ^8.0.3
@@ -56,6 +57,7 @@ dependencies:
   '@nestjs/core': 8.0.6_a4d6c832897073857f471f32139e452f
   '@nestjs/graphql': 9.0.4_53204d791052aebf5fe50f1f9e0683b5
   '@nestjs/jwt': 8.0.0_@nestjs+common@8.0.6
+  '@nestjs/mapped-types': 1.0.0_98ff46db2ce9f8b87e20a19aa1e55592
   '@nestjs/passport': 8.0.1_2c02db70fddcb59258fa0eed39c4b725
   '@nestjs/platform-express': 8.0.6_67f7e5db8827badcb202b1d38f6b1aea
   '@prisma/client': 3.0.2_prisma@3.0.2
