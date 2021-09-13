@@ -11,6 +11,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -36,13 +37,10 @@ export class UserController {
     return resp;
   }
 
-  //   @Patch(':id')
-  //   async update(
-  //     @Param('id') id: string,
-  //     @Body() updateJournalDto: UpdateJournalDto,
-  //   ) {
-  //     return this.userService.update(id, updateJournalDto);
-  //   }
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return await this.userService.update(id, updateUserDto);
+  }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
