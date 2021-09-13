@@ -1,18 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { GraphQLModule } from '@nestjs/graphql';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
-import { join } from 'path';
 import { JournalModule } from './journal/journal.module';
 import * as Joi from 'joi';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot({
-      autoSchemaFile: join(process.cwd(), 'src', 'schema.graphql'),
-      playground: process.env.NODE_ENV !== "production"
-    }),
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         JWT_SECRET: Joi.string().required(),
@@ -22,9 +16,9 @@ import * as Joi from 'joi';
     }),
     AuthModule,
     UserModule,
-    JournalModule
+    JournalModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}
