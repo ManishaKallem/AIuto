@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { join } from 'path';
+import { JournalModule } from './journal/journal.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -20,7 +21,8 @@ import * as Joi from 'joi';
       }),
     }),
     AuthModule,
-    UserModule
+    UserModule,
+    JournalModule
   ],
   controllers: [],
   providers: [],
