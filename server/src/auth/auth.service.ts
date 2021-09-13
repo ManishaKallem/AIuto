@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
-import { LoginResult } from './dto/login-user.result';
 import { LoginUserInput } from './dto/login-user.input';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { checkPassword } from 'src/user/utils';
@@ -39,7 +38,7 @@ export class AuthService {
     if (isMatch) {
       // If there is a successful match, generate a JWT for the user
       const token = this.createJwt(userToAttempt);
-      const result: LoginResult = {
+      const result = {
         user: userToAttempt,
         token,
       };
