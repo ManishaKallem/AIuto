@@ -1,7 +1,10 @@
-import { ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  ExecutionContext,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { AuthenticationError } from 'apollo-server-core';
 
 @Injectable()
 export class GqlAuthGuard extends AuthGuard('jwt') {
@@ -12,7 +15,7 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
 
   handleRequest(err: any, user: any) {
     if (err || !user) {
-      throw err || new AuthenticationError('Could not authenticate with token');
+      throw err || new ForbiddenException('Could not authenticate with token');
     }
     return user;
   }
