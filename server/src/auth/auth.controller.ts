@@ -8,7 +8,7 @@ import {
 import { AuthService } from './auth.service';
 import { CurrentUser } from './current-user.decorator';
 import { LoginUserInput } from './dto/login-user.input';
-import { ApiAuthGuard } from './guards/gql-auth.guard';
+import { ApiAuthGuard } from './guards/api-auth.guard';
 import { User } from '@prisma/client';
 
 @Controller('auth')
