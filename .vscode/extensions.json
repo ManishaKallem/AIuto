@@ -9,6 +9,7 @@
         "prisma.prisma",
         "wakatime.vscode-wakatime",
         "gruntfuggly.todo-tree",
-        "rangav.vscode-thunder-client"
+        "rangav.vscode-thunder-client",
+        "johnsoncodehk.volar"
     ]
 }
