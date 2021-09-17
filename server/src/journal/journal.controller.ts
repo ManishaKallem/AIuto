@@ -7,18 +7,26 @@ import {
   Param,
   Delete,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { JournalService } from './journal.service';
 import { CreateJournalDto } from './dto/create-journal.dto';
 import { UpdateJournalDto } from './dto/update-journal.dto';
+import { User } from '@prisma/client';
+import { ApiAuthGuard } from 'src/auth/guards/api-auth.guard';
+import { CurrentUser } from 'src/auth/current-user.decorator';
 
 @Controller('journal')
 export class JournalController {
   constructor(private readonly journalService: JournalService) {}
 
+  @UseGuards(ApiAuthGuard)
   @Post()
-  create(@Body() createJournalDto: CreateJournalDto) {
-    return this.journalService.create(createJournalDto);
+  async create(
+    @Body() createJournalDto: CreateJournalDto,
+    @CurrentUser() user: User,
+  ) {
+    return await this.journalService.create(createJournalDto, user);
   }
 
   @Get()
@@ -34,12 +42,15 @@ export class JournalController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateJournalDto: UpdateJournalDto) {
-    return this.journalService.update(+id, updateJournalDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateJournalDto: UpdateJournalDto,
+  ) {
+    return await this.journalService.update(+id, updateJournalDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.journalService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.journalService.remove(+id);
   }
 }

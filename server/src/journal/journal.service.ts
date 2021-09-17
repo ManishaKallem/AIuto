@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateJournalDto } from './dto/create-journal.dto';
@@ -7,12 +8,26 @@ import { UpdateJournalDto } from './dto/update-journal.dto';
 export class JournalService {
   constructor(private prisma: PrismaService) {}
 
-  create(createJournalDto: CreateJournalDto) {
-    return 'This action adds a new journal';
+  async create(createJournalDto: CreateJournalDto, user: User) {
+    const todo = await this.prisma.journal.create({
+      data: {
+        ...createJournalDto,
+        user: {
+          connect: {
+            id: user.id,
+          },
+        },
+      },
+    });
+    return todo;
   }
 
   async findAll() {
-    const todos = await this.prisma.journal.findMany();
+    const todos = await this.prisma.journal.findMany({
+      include: {
+        user: true,
+      },
+    });
     return todos;
   }
 
@@ -26,11 +41,11 @@ export class JournalService {
     return todo;
   }
 
-  update(id: number, updateJournalDto: UpdateJournalDto) {
+  async update(id: number, updateJournalDto: UpdateJournalDto) {
     return `This action updates a #${id} journal`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} journal`;
   }
 }
