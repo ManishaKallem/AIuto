@@ -1,0 +1,12 @@
+{
+  "name": "aiuto",
+  "version": "1.0.0",
+  "private": true,
+  "repository": "https://github.com/ManishaKallem/AIuto.git",
+  "author": "IgnisDa <ignisda2001@gmail.com>",
+  "license": "MIT",
+  "workspaces": [
+    "frontend",
+    "server"
+  ]
+}
