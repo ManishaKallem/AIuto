@@ -15,4 +15,4 @@ setup:
 # Seed the database with fake data
 db-seed:
     #!/usr/bin/env bash
-    cd "{{backend_folder}}" && yarn prisma db seed
+    cd "{{backend_folder}}" && yarn prisma db push && yarn prisma db seed
