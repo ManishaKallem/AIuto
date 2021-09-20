@@ -1,21 +1,23 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
   NotFoundException,
+  Param,
+  Patch,
+  Post,
   UseGuards,
 } from '@nestjs/common';
-import { JournalService } from './journal.service';
+import { ApiTags } from '@nestjs/swagger';
+import { User } from '@prisma/client';
+import { CurrentUser } from 'src/auth/current-user.decorator';
+import { ApiAuthGuard } from 'src/auth/guards/api-auth.guard';
 import { CreateJournalDto } from './dto/create-journal.dto';
 import { UpdateJournalDto } from './dto/update-journal.dto';
-import { User } from '@prisma/client';
-import { ApiAuthGuard } from 'src/auth/guards/api-auth.guard';
-import { CurrentUser } from 'src/auth/current-user.decorator';
+import { JournalService } from './journal.service';
 
+@ApiTags('journal')
 @Controller('journal')
 export class JournalController {
   constructor(private readonly journalService: JournalService) {}
