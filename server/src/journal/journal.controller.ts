@@ -46,7 +46,7 @@ export class JournalController {
     @Param('id') id: string,
     @Body() updateJournalDto: UpdateJournalDto,
   ) {
-    return await this.journalService.update(+id, updateJournalDto);
+    return await this.journalService.update(id, updateJournalDto);
   }
 
   @Delete(':id')

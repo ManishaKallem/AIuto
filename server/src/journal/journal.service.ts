@@ -12,11 +12,7 @@ export class JournalService {
     const todo = await this.prisma.journal.create({
       data: {
         ...createJournalDto,
-        user: {
-          connect: {
-            id: user.id,
-          },
-        },
+        user: { connect: { id: user.id } },
       },
     });
     return todo;
@@ -24,25 +20,25 @@ export class JournalService {
 
   async findAll() {
     const todos = await this.prisma.journal.findMany({
-      include: {
-        user: true,
-      },
+      include: { user: true },
     });
     return todos;
   }
 
   async findOne(id: string) {
     const todo = await this.prisma.journal.findUnique({
-      where: {
-        id: id,
-      },
+      where: { id },
     });
     if (!todo) return false;
     return todo;
   }
 
-  async update(id: number, updateJournalDto: UpdateJournalDto) {
-    return `This action updates a #${id} journal`;
+  async update(id: string, updateJournalDto: UpdateJournalDto) {
+    const todo = await this.prisma.journal.update({
+      where: { id },
+      data: updateJournalDto,
+    });
+    return todo;
   }
 
   async remove(id: number) {
