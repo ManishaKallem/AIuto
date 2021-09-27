@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Post,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -17,7 +18,7 @@ import { ApiAuthGuard } from './guards/api-auth.guard';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Get('login')
+  @Post('login')
   async loginUser(@Body() loginUserInput: LoginUserInput) {
     const res = await this.authService.validateUserByPassword(loginUserInput);
     if (res) return res;
