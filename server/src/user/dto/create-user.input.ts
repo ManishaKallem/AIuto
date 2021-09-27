@@ -7,7 +7,10 @@ import {
 import { IsPasswordValid } from 'src/utils';
 
 export class CreateUserInput {
-  /* The username of the new user */
+  /*
+  The username of the new user
+  @example 'IgnisDa'
+   */
   @IsNotEmpty()
   @IsAlphanumeric()
   username: string;
