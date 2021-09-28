@@ -5,4 +5,4 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | sudo 
 ENV DATABASE_URL=postgresql://gitpod@localhost/server_db
 ENV JWT_SECRET=pqJiVgORTeBBNOsvAveWFkdqkxGxlUeNNYuQipiuwGwcTcyKki
 ENV JWT_EXPIRES_IN=3600s
-ENV NODE_ENV=developmen
+ENV NODE_ENV=development
