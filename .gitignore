@@ -32,3 +32,5 @@ www
 /.devcontainer/scripts/private-*
 /.vscode/settings.json
 node_modules
+.env
+*.db*
