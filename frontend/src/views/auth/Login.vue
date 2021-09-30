@@ -15,7 +15,7 @@
         <ion-input v-model="password" type="password" required></ion-input>
       </ion-item>
       <ion-item>
-        <ion-button type="submit">Sign Up</ion-button>
+        <ion-button type="submit">Submit</ion-button>
       </ion-item>
     </ion-card>
   </form>
@@ -29,21 +29,21 @@ import {
   IonItem,
   IonLabel,
   IonText,
-} from '@ionic/vue';
-import { defineComponent } from 'vue';
-import authService from '@/services/api/auth';
+} from "@ionic/vue";
+import { defineComponent } from "vue";
+import authService from "@/services/api/auth";
 
 export default defineComponent({
   components: { IonText, IonInput, IonLabel, IonItem, IonCard, IonButton },
   data: () => ({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   }),
   methods: {
     async handleLogin() {
+      // TODO: Handle errors
       const resp = await authService.loginUser(this.username, this.password);
-      console.log(resp);
-      return 'hello';
+      return resp;
     },
   },
 });
