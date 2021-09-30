@@ -32,6 +32,7 @@ import {
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import authService from "@/services/api/auth";
+import { useHead } from "@vueuse/head";
 
 export default defineComponent({
   components: { IonText, IonInput, IonLabel, IonItem, IonCard, IonButton },
@@ -45,6 +46,17 @@ export default defineComponent({
       const resp = await authService.loginUser(this.username, this.password);
       return resp;
     },
+  },
+  setup() {
+    useHead({
+      title: "Login",
+      meta: [
+        {
+          name: "description",
+          content: "The login page of AIuto",
+        },
+      ],
+    });
   },
 });
 </script>

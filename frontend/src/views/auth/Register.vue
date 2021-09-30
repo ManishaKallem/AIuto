@@ -36,6 +36,7 @@ import {
 } from "@ionic/vue";
 import { defineComponent } from "vue";
 import userService from "@/services/api/user";
+import { useHead } from "@vueuse/head";
 
 export default defineComponent({
   components: { IonText, IonInput, IonLabel, IonItem, IonCard, IonButton },
@@ -54,6 +55,17 @@ export default defineComponent({
       );
       return resp;
     },
+  },
+  setup() {
+    useHead({
+      title: "Register",
+      meta: [
+        {
+          name: "description",
+          content: "The register page of AIuto",
+        },
+      ],
+    });
   },
 });
 </script>
