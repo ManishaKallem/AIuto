@@ -1,10 +1,10 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'frontend',
-  webDir: 'dist',
-  bundledWebRuntime: false
+  appId: "io.cadre.aiuto",
+  appName: "AIuto",
+  webDir: "dist",
+  bundledWebRuntime: false,
 };
 
 export default config;
