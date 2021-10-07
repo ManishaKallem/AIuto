@@ -29,34 +29,48 @@ import {
   IonItem,
   IonLabel,
   IonText,
-} from "@ionic/vue";
-import { defineComponent } from "vue";
-import authService from "@/services/api/auth";
-import { useHead } from "@vueuse/head";
+  alertController,
+} from '@ionic/vue';
+import { defineComponent, ref } from 'vue';
+import authService from '@/services/api/auth';
+import { useHead } from '@vueuse/head';
+import { useStore } from '@/store';
 
 export default defineComponent({
   components: { IonText, IonInput, IonLabel, IonItem, IonCard, IonButton },
-  data: () => ({
-    username: "",
-    password: "",
-  }),
-  methods: {
-    async handleLogin() {
-      // TODO: Handle errors
-      const resp = await authService.loginUser(this.username, this.password);
-      return resp;
-    },
-  },
+
   setup() {
+    const username = ref('');
+    const password = ref('');
     useHead({
-      title: "Login",
+      title: 'Login',
       meta: [
         {
-          name: "description",
-          content: "The login page of AIuto",
+          name: 'description',
+          content: 'The login page of AIuto',
         },
       ],
     });
+    const store = useStore();
+    const handleLogin = async () => {
+      const [status, resp] = await authService.loginUser(
+        username.value,
+        password.value,
+      );
+      if (!status) {
+        const alert = await alertController.create({
+          header: 'Failure',
+          message: resp,
+          buttons: ['OK'],
+        });
+        alert.present();
+      } else await store.dispatch('auth/refreshToken', resp);
+    };
+    return {
+      username,
+      password,
+      handleLogin,
+    };
   },
 });
 </script>
