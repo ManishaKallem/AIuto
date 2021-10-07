@@ -5,25 +5,11 @@
         <ion-title>Dashboard</ion-title>
       </ion-toolbar>
     </ion-header>
-
     <ion-content :fullscreen="true">
       <ion-refresher slot="fixed" @ionRefresh="refresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
-
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Inbox</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
-      <ion-list>
-        <MessageListItem
-          v-for="message in messages"
-          :key="message.id"
-          :message="message"
-        />
-      </ion-list>
+      <ion-title color="primary">Welcome to AIuto!</ion-title>
     </ion-content>
   </ion-page>
 </template>
@@ -32,24 +18,16 @@
 import {
   IonContent,
   IonHeader,
-  IonList,
   IonPage,
   IonRefresher,
   IonRefresherContent,
   IonTitle,
   IonToolbar,
-} from "@ionic/vue";
-import MessageListItem from "@/components/MessageListItem.vue";
-import { defineComponent } from "vue";
-import { getMessages } from "@/data/messages";
+} from '@ionic/vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "Home",
-  data() {
-    return {
-      messages: getMessages(),
-    };
-  },
+  name: 'Home',
   methods: {
     refresh: (ev: CustomEvent) => {
       setTimeout(() => {
@@ -60,13 +38,11 @@ export default defineComponent({
   components: {
     IonContent,
     IonHeader,
-    IonList,
     IonPage,
     IonRefresher,
     IonRefresherContent,
     IonTitle,
     IonToolbar,
-    MessageListItem,
   },
 });
 </script>
