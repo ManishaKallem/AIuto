@@ -2,26 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
 import { checkPropertiesExists } from 'src/utils';
 import { PrismaService } from 'src/prisma.service';
-import { getPasswordDigest } from './utils';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { PasswordsService } from 'src/auth/passwords.service';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly prisma: PrismaService) {
-    prisma.$use(async (params, next) => {
-      if (
-        params.model === 'User' &&
-        (params.action === 'update' || params.action === 'create')
-      ) {
-        if (params.args.data.password) {
-          params.args.data.password = await getPasswordDigest(
-            params.args.data.password,
-          );
-        }
-      }
-      return next(params);
-    });
-  }
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly passwordService: PasswordsService,
+  ) {}
 
   async findAll() {
     return await this.prisma.user.findMany({
@@ -68,7 +57,12 @@ export class UserService {
     }
     resp.status = true;
     resp.resp = await this.prisma.user.create({
-      data: createUserInput,
+      data: {
+        ...createUserInput,
+        password: await this.passwordService.getPasswordDigest(
+          createUserInput.password,
+        ),
+      },
       select: {
         id: true,
         username: true,
