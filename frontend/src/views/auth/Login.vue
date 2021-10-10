@@ -22,26 +22,24 @@
 </template>
 
 <script lang="ts">
+import authService from '@/services/api/auth';
+import { useStore } from '@/store';
 import {
+  alertController,
   IonButton,
   IonCard,
   IonInput,
   IonItem,
   IonLabel,
   IonText,
-  alertController,
 } from '@ionic/vue';
-import { defineComponent, ref } from 'vue';
-import authService from '@/services/api/auth';
 import { useHead } from '@vueuse/head';
-import { useStore } from '@/store';
+import { defineComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   components: { IonText, IonInput, IonLabel, IonItem, IonCard, IonButton },
-
   setup() {
-    const username = ref('');
-    const password = ref('');
     useHead({
       title: 'Login',
       meta: [
@@ -52,6 +50,9 @@ export default defineComponent({
       ],
     });
     const store = useStore();
+    const router = useRouter();
+    const username = ref('');
+    const password = ref('');
     const handleLogin = async () => {
       const [status, resp] = await authService.loginUser(
         username.value,
@@ -64,13 +65,12 @@ export default defineComponent({
           buttons: ['OK'],
         });
         alert.present();
-      } else await store.dispatch('auth/refreshToken', resp);
+      } else {
+        await store.dispatch('auth/refreshToken', resp.data.token);
+        router.push({ name: 'home' });
+      }
     };
-    return {
-      username,
-      password,
-      handleLogin,
-    };
+    return { username, password, handleLogin };
   },
 });
 </script>
