@@ -119,7 +119,7 @@ export default defineComponent({
   },
   data: () => ({
     schema: {
-      username: 'required|min:3|max:50|alpha_spaces',
+      username: 'required|min:3|max:50|alpha_num',
       email: 'required|min:3|email',
       password: 'required|min:5|max:50',
     },
