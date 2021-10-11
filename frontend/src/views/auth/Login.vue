@@ -1,15 +1,14 @@
 <template>
   <form @submit.prevent="handleLogin">
     <ion-header>
-      <p>skofsno</p>
+      <ion-toolbar>
+        <ion-buttons>
+          <ion-back-button slot="start" default-href="/home"></ion-back-button>
+        </ion-buttons>
+      </ion-toolbar>
       <img src="/assets/login.png" />
     </ion-header>
     <ion-card>
-      <ion-item>
-        <ion-text color="primary">
-          <h1>Login</h1>
-        </ion-text>
-      </ion-item>
       <ion-item>
         <ion-label>Username</ion-label>
         <ion-input v-model="username" required></ion-input>
@@ -19,7 +18,9 @@
         <ion-input v-model="password" type="password" required></ion-input>
       </ion-item>
       <ion-item>
-        <ion-button type="submit">Submit</ion-button>
+        <div style="padding-left: 35%">
+          <ion-button type="submit">Submit</ion-button>
+        </div>
       </ion-item>
     </ion-card>
   </form>
@@ -33,16 +34,23 @@ import {
   IonButton,
   IonCard,
   IonInput,
+  IonToolbar,
   IonItem,
   IonLabel,
-  IonText,
 } from '@ionic/vue';
 import { useHead } from '@vueuse/head';
 import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
-  components: { IonText, IonInput, IonLabel, IonItem, IonCard, IonButton },
+  components: {
+    IonInput,
+    IonLabel,
+    IonItem,
+    IonCard,
+    IonButton,
+    IonToolbar,
+  },
   setup() {
     useHead({
       title: 'Login',
