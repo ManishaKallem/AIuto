@@ -1,5 +1,9 @@
 <template>
   <form @submit.prevent="handleLogin">
+    <ion-header>
+      <p>skofsno</p>
+      <img src="/assets/login.png" />
+    </ion-header>
     <ion-card>
       <ion-item>
         <ion-text color="primary">
