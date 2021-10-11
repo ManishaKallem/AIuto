@@ -4,12 +4,38 @@
     :validation-schema="schema"
     v-slot="{ isSubmitting, errors }"
   >
+    <ion-header>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <ion-toolbar>
+        <ion-buttons>
+          <ion-back-button
+            slot="start"
+            default-href="/auth/login"
+          ></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button type="submit" :disabled="isSubmitting">
+            Create
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+      <ion-text>
+        <div
+          style="
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: 250%;
+            padding-top: 15%;
+            padding-bottom: 10%;
+          "
+        >
+          <p>What should we</p>
+          <p>call you?</p>
+        </div>
+      </ion-text>
+    </ion-header>
     <ion-card>
-      <ion-item>
-        <ion-text color="primary">
-          <h1>Register</h1>
-        </ion-text>
-      </ion-item>
       <ion-item-group>
         <ion-item>
           <ion-label>Username</ion-label>
@@ -73,16 +99,11 @@
           </ion-text>
         </ion-item>
       </ion-item-group>
-      <ion-item>
-        <ion-button
-          expand="block"
-          type="submit"
-          :disabled="isSubmitting || hasErrors(errors)"
-        >
-          Submit
-        </ion-button>
-      </ion-item>
     </ion-card>
+    <div style="text-align: center; position: fixed; bottom: 15px; width: 100%">
+      <p style="text-align: center">Already have an account?<br /></p>
+      <a href="/auth/login" style="text-align: center; width: 100%">Login</a>
+    </div>
   </vee-form>
 </template>
 
@@ -91,6 +112,9 @@ import userService from '@/services/api/user';
 import {
   alertController,
   IonButton,
+  IonBackButton,
+  IonToolbar,
+  IonHeader,
   IonCard,
   IonInput,
   IonItemGroup,
@@ -112,6 +136,9 @@ export default defineComponent({
     IonText,
     IonInput,
     IonItemGroup,
+    IonBackButton,
+    IonToolbar,
+    IonHeader,
     IonLabel,
     IonItem,
     IonCard,
