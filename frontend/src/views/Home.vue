@@ -10,6 +10,8 @@
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
       <ion-title color="primary">Welcome to AIuto!</ion-title>
+      <a href="/auth/login">Login<br /></a>
+      <a href="/auth/register">Sign up</a>
     </ion-content>
   </ion-page>
 </template>
