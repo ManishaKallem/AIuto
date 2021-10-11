@@ -5,7 +5,6 @@
     v-slot="{ isSubmitting, errors }"
   >
     <ion-header>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <ion-toolbar>
         <ion-buttons>
           <ion-back-button
@@ -25,8 +24,8 @@
             width: 100%;
             height: 100%;
             text-align: center;
-            font-size: 250%;
-            padding-top: 15%;
+            font-size: 200%;
+            padding-top: 10%;
             padding-bottom: 10%;
           "
         >
