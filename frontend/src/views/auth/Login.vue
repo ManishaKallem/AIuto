@@ -3,7 +3,10 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons>
-          <ion-back-button slot="start" default-href="/home"></ion-back-button>
+          <ion-back-button
+            slot="start"
+            default-href="/Welcome"
+          ></ion-back-button>
         </ion-buttons>
       </ion-toolbar>
       <img src="/assets/login.png" />
