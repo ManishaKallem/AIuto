@@ -13,8 +13,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 import { CurrentUser } from 'src/auth/current-user.decorator';
 import { ApiAuthGuard } from 'src/auth/guards/api-auth.guard';
-import { CreateJournalDto } from './dto/create-journal.dto';
-import { UpdateJournalDto } from './dto/update-journal.dto';
+import { CreateJournalDto, UpdateJournalDto } from './dto/journal.dto';
 import { JournalService } from './journal.service';
 
 @ApiTags('journal')
@@ -39,7 +38,8 @@ export class JournalController {
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const resp = await this.journalService.findOne(id);
-    if (!resp) throw new NotFoundException('The given journal was not found');
+    if (!resp)
+      throw new NotFoundException(`The journal with id='${id}' was not found`);
     return resp;
   }
 
@@ -53,6 +53,6 @@ export class JournalController {
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.journalService.remove(+id);
+    return await this.journalService.remove(id);
   }
 }
