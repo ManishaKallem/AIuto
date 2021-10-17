@@ -1,8 +1,7 @@
-import { User } from '@prisma/client';
 import { Injectable, Logger } from '@nestjs/common';
+import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
-import { CreateNavigatorDto } from './dto/create-navigator.dto';
-import { UpdateNavigatorDto } from './dto/update-navigator.dto';
+import { CreateNavigatorDto, UpdateNavigatorDto } from './dto/navigator.dto';
 
 @Injectable()
 export class NavigatorService {
@@ -36,8 +35,17 @@ export class NavigatorService {
     return `This action returns a #${id} navigator`;
   }
 
-  update(id: number, updateNavigatorDto: UpdateNavigatorDto) {
-    return `This action updates a #${id} navigator`;
+  async update(id: number, updateNavigatorDto: UpdateNavigatorDto) {
+    try {
+      const moodEntry = await this.prisma.moodEntry.update({
+        where: { id: id },
+        data: { ...updateNavigatorDto },
+      });
+      this.logger.debug(moodEntry);
+      return moodEntry;
+    } catch {
+      return false;
+    }
   }
 
   remove(id: number) {
