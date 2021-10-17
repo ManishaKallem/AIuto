@@ -1,14 +1,14 @@
 import { PartialType } from '@nestjs/mapped-types';
 
 /**
-The DTO used to create a journal in the database.
+ * The DTO used to create a journal in the database.
  */
 export class CreateJournalDto {
   /**
   The title of the journal entry
   @example 'Take the dog for a walk'
    */
-  title: string;
+  title!: string;
 
   /**
   A brief description of the journal entry
@@ -22,4 +22,7 @@ export class CreateJournalDto {
   completed?: boolean;
 }
 
+/**
+ * The DTO used to update an existing journal in the database.
+ */
 export class UpdateJournalDto extends PartialType(CreateJournalDto) {}
