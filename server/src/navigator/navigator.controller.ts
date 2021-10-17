@@ -1,4 +1,3 @@
-import { User } from '@prisma/client';
 import {
   Body,
   Controller,
@@ -10,10 +9,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { User } from '@prisma/client';
 import { CurrentUser } from 'src/auth/current-user.decorator';
 import { ApiAuthGuard } from 'src/auth/guards/api-auth.guard';
-import { CreateNavigatorDto } from './dto/create-navigator.dto';
-import { UpdateNavigatorDto } from './dto/update-navigator.dto';
+import { CreateNavigatorDto, UpdateNavigatorDto } from './dto/navigator.dto';
 import { NavigatorService } from './navigator.service';
 
 @ApiTags('navigator')
@@ -41,11 +40,11 @@ export class NavigatorController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
+  async update(
+    @Param('id') id: number,
     @Body() updateNavigatorDto: UpdateNavigatorDto,
   ) {
-    return this.navigatorService.update(+id, updateNavigatorDto);
+    return await this.navigatorService.update(id, updateNavigatorDto);
   }
 
   @Delete(':id')
