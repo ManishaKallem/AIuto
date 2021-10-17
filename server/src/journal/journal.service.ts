@@ -1,8 +1,7 @@
 import { User } from '@prisma/client';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
-import { CreateJournalDto } from './dto/create-journal.dto';
-import { UpdateJournalDto } from './dto/update-journal.dto';
+import { CreateJournalDto, UpdateJournalDto } from './dto/journal.dto';
 
 @Injectable()
 export class JournalService {
@@ -41,7 +40,14 @@ export class JournalService {
     return todo;
   }
 
-  async remove(id: number) {
-    return `This action removes a #${id} journal`;
+  async remove(id: string) {
+    try {
+      await this.prisma.journal.delete({
+        where: { id },
+      });
+      return true;
+    } catch {
+      return false;
+    }
   }
 }

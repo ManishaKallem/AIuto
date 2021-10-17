@@ -53,6 +53,9 @@ export class JournalController {
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return await this.journalService.remove(id);
+    const resp = await this.journalService.remove(id);
+    if (!resp)
+      throw new NotFoundException(`The journal with id='${id}' was not found`);
+    return resp;
   }
 }
