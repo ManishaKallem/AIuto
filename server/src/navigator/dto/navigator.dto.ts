@@ -1,7 +1,10 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Mood } from '@prisma/client';
 import { IsDateString, IsEnum } from 'class-validator';
 
+/**
+ * The DTO that is used to create a new navigator object.
+ */
 export class CreateNavigatorDto {
   /**
    * The date of which day we want to set the mood of
@@ -16,3 +19,8 @@ export class CreateNavigatorDto {
   @IsEnum(Mood)
   mood!: Mood;
 }
+
+/**
+ * The DTO that is used to update an existing navigator object.
+ */
+export class UpdateNavigatorDto extends PartialType(CreateNavigatorDto) {}
