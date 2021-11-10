@@ -34,3 +34,4 @@ www
 node_modules
 .env
 *.db*
+personal
