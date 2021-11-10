@@ -2,7 +2,7 @@ import { ValidationError } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 import { registerDecorator, ValidationOptions } from 'class-validator';
-import * as zxcvbn from 'zxcvbn';
+import zxcvbn from 'zxcvbn';
 
 export function checkPropertiesExists(obj: Record<string, unknown>) {
   for (const key in obj) {
