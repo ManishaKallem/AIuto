@@ -13,7 +13,6 @@ import * as Joi from 'joi';
       validationSchema: Joi.object({
         JWT_SECRET: Joi.string().required(),
         DATABASE_URL: Joi.string().required(),
-        PASSWORD_HASH_MEMORY_COST: Joi.number().default(16),
       }),
     }),
     AuthModule,
