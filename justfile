@@ -15,8 +15,21 @@ run-server:
 
 # Setup the dependencies for all the micro-services.
 setup:
-    yarn install
+    yarn install --frozen-lockfile
 
 # Seed the database with fake data
 db-seed:
     cd "{{backend_folder}}" && yarn prisma db push && yarn prisma db seed
+
+# build the project for production
+build-prod:
+    #!/bin/sh
+    cd "{{backend_folder}}"
+    yarn run build
+
+# start the production servers
+start-prod:
+    #!/bin/sh
+    cd "{{backend_folder}}"
+    yarn prisma migrate deploy
+    yarn run start:prod

@@ -29,7 +29,7 @@ platforms
 plugins
 www
 
-/.devcontainer/scripts/private-*
+private-*.sh
 /.vscode/settings.json
 node_modules
 .env

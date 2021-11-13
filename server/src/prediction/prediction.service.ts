@@ -33,6 +33,9 @@ export class PredictionService {
       this.logger.debug(`Read output from '${outputFile}'`);
       const output = readFileSync(outputFile);
       return JSON.parse(output.toString());
+    } else {
+      const output = pythonProcess.stderr.toString();
+      this.logger.error(output);
     }
     return Promise.reject({
       message: 'There was an error with processing the input',
