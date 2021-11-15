@@ -42,6 +42,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'MoodNavigator',
     component: () => import('../views/MoodNavigator.vue'),
   },
+  {
+    path: '/act',
+    name: 'ACT Bot',
+    component: () => import('../views/ACT.vue'),
+  }
 ];
 
 const router = createRouter({
