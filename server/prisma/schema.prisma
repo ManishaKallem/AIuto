@@ -15,13 +15,26 @@ generator dbml {
 }
 
 model User {
-  id        String      @id @default(cuid())
-  username  String      @unique
-  email     String      @unique
-  password  String
-  Journal   Journal[]
-  MoodTrack MoodEntry[]
-  Schedule  Schedule[]
+  id            String      @id @default(cuid())
+  username      String      @unique
+  email         String      @unique
+  password      String
+  groups        Group[]
+  Journal       Journal[]
+  MoodTrack     MoodEntry[]
+  Schedule      Schedule[]
+  adminOfGroups Group[]     @relation("groupAdmin")
+}
+
+/// Model to track groups
+model Group {
+  id           String  @id @default(uuid()) @db.Uuid
+  title        String
+  description  String?
+  users        User[]
+  inviteString String? @unique @db.Char(10)
+  admin        User?   @relation("groupAdmin", fields: [userId], references: [id], onDelete: SetNull)
+  userId       String?
 }
 
 // ## Journal App ##
