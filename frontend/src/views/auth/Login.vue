@@ -31,15 +31,18 @@
 
 <script lang="ts">
 import authService from '@/services/api/auth';
-import { useStore } from '@/store';
+import { setStorageItem } from '@/services/storage';
 import {
   alertController,
+  IonBackButton,
   IonButton,
+  IonButtons,
   IonCard,
+  IonHeader,
   IonInput,
-  IonToolbar,
   IonItem,
   IonLabel,
+  IonToolbar,
 } from '@ionic/vue';
 import { useHead } from '@vueuse/head';
 import { defineComponent, ref } from 'vue';
@@ -53,6 +56,9 @@ export default defineComponent({
     IonCard,
     IonButton,
     IonToolbar,
+    IonBackButton,
+    IonButtons,
+    IonHeader,
   },
   setup() {
     useHead({
@@ -64,7 +70,6 @@ export default defineComponent({
         },
       ],
     });
-    const store = useStore();
     const router = useRouter();
     const username = ref('');
     const password = ref('');
@@ -81,7 +86,7 @@ export default defineComponent({
         });
         alert.present();
       } else {
-        await store.dispatch('auth/refreshToken', resp.data.token);
+        await setStorageItem('token', resp.data.token);
         router.push({ name: 'home' });
       }
     };
