@@ -26,10 +26,3 @@ build-prod:
     #!/bin/sh
     cd "{{backend_folder}}"
     yarn run build
-
-# start the production servers
-start-prod:
-    #!/bin/sh
-    cd "{{backend_folder}}"
-    yarn prisma migrate deploy
-    yarn run start:prod
