@@ -99,7 +99,7 @@
               margin: auto;
             "
           >
-            <ion-card-content style="font-size: 150%">
+            <ion-card-content style="font-size: 130%">
               {{ CurrentDateDay().date }}<br />
               {{ CurrentDateDay().day }}
             </ion-card-content>
@@ -197,6 +197,10 @@ export default defineComponent({
     });
   },
   methods: {
+    /**
+     * need function for showing the emoji in card when selected
+     * also need one for the dated buttons on top
+     * i need to get better at using buttons */
     CurrentDateDay() {
       const current = new Date();
       const date = current.getDate();
