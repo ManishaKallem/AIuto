@@ -5,7 +5,17 @@ CREATE TYPE "Mood" AS ENUM ('HAPPY', 'SAD', 'ORDINARY', 'ANGRY', 'DISTRESSED');
 CREATE TYPE "Day" AS ENUM ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY');
 
 -- CreateEnum
-CREATE TYPE "RepeatEach" AS ENUM ('ONCE', 'DAILY', 'WEEKDAYS', 'WEEKENDS', 'CUSTOM');
+CREATE TYPE "RepeatEach" AS ENUM ('NEVER', 'DAILY', 'WEEKLY', 'MONTHLY');
+
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Journal" (
@@ -44,14 +54,20 @@ CREATE TABLE "MoodEntry" (
 CREATE TABLE "Schedule" (
     "id" SERIAL NOT NULL,
     "userId" TEXT NOT NULL,
-    "label" TEXT NOT NULL,
-    "remindAt" TIME NOT NULL,
-    "repeatEach" "RepeatEach" NOT NULL DEFAULT E'ONCE',
-    "selectedDays" "Day"[],
-    "remindEvery" INTEGER,
+    "title" TEXT NOT NULL,
+    "note" TEXT,
+    "startTime" TIME NOT NULL,
+    "endTime" TIME NOT NULL,
+    "repeatEach" "RepeatEach" NOT NULL DEFAULT E'NEVER',
 
     CONSTRAINT "Schedule_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "MoodEntry_userId_on_key" ON "MoodEntry"("userId", "on");

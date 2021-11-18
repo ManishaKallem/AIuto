@@ -73,19 +73,15 @@ enum Mood {
 // This is synonymous to an alarm
 /// This will show up in the user's timeline/schedule
 model Schedule {
-  id           Int        @id @default(autoincrement())
-  user         User       @relation(fields: [userId], references: [id])
-  userId       String
-  label        String
-  // the time at which the user would like to be reminded at
-  remindAt     DateTime   @db.Time
+  id         Int        @id @default(autoincrement())
+  user       User       @relation(fields: [userId], references: [id])
+  userId     String
+  title      String
+  note       String?
+  startTime  DateTime   @db.Time
+  endTime    DateTime   @db.Time
   // the time duration after which the schedule should repeat
-  repeatEach   RepeatEach @default(ONCE)
-  // list of all the days on which to repeat
-  // TODO: Use postgres EXCLUSION criteria to ensure that `if repeatEach != CUSTOM, then selectedDays.length == 0`
-  selectedDays Day[]
-  // TODO: remind x minutes before the actual event
-  remindBefore Int? // FIXME: change this to interval field
+  repeatEach RepeatEach @default(NEVER)
 }
 
 enum Day {
@@ -99,9 +95,8 @@ enum Day {
 }
 
 enum RepeatEach {
-  ONCE
+  NEVER
   DAILY
-  WEEKDAYS
-  WEEKENDS
-  CUSTOM
+  WEEKLY
+  MONTHLY
 }
