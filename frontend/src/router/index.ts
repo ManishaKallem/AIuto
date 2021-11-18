@@ -46,6 +46,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/act',
     name: 'ACT Bot',
     component: () => import('../views/ACT.vue'),
+  },
+  {
+    path: '/scheduler',
+    name: 'Scheduler',
+    component: () => import('../views/Scheduler.vue'),
+    
   }
 ];
 
