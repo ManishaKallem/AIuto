@@ -5,15 +5,20 @@
       @ionTabsDidChange="afterTabChange"
     >
       <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="schedule" href="/nav/scheduler">
-          <ion-icon :icon="calendar"></ion-icon>
-          <ion-label>Scheduler</ion-label>
-          <ion-badge>6</ion-badge>
-        </ion-tab-button>
-
-        <ion-tab-button tab="speakers" href="/nav/act">
+        <ion-tab-button tab="act" href="/nav/act">
           <ion-icon :icon="personCircle"></ion-icon>
           <ion-label>ACT</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="stats" href="/nav/stats">
+          <ion-icon :icon="personCircle"></ion-icon>
+          <ion-label>Stats</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="journal" href="/nav/journal">
+          <ion-icon :icon="calendar"></ion-icon>
+          <ion-label>Journal</ion-label>
+          <ion-badge>6</ion-badge>
         </ion-tab-button>
 
         <ion-tab-button tab="group" href="/nav/group">
