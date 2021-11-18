@@ -7,6 +7,7 @@ import { NavigatorModule } from './navigator/navigator.module';
 import { PredictionModule } from './prediction/prediction.module';
 import * as Joi from 'joi';
 import { existsSync } from 'fs';
+import { ScheduleModule } from './schedule/schedule.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { existsSync } from 'fs';
     JournalModule,
     NavigatorModule,
     PredictionModule,
+    ScheduleModule,
   ],
   controllers: [],
   providers: [],
