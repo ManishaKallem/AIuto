@@ -16,5 +16,3 @@ RUN just build-prod
 ENV NODE_ENV=production \
     CI=1 \
     GOOGLE_APPLICATION_CREDENTIALS="/key.json"
-CMD ["cd", "server", "&&", "yarn", "start:prod" ]
-

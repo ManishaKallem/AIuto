@@ -1,3 +1,5 @@
+set dotenv-load := true
+
 backend_folder := "server"
 frontend_folder := "frontend"
 

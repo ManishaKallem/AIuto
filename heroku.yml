@@ -7,7 +7,7 @@ build:
     web: Dockerfile
 release:
   image: web
-  command: >
-    yarn prisma migrate deploy &&
-    echo "${GCP_CREDENTIALS}" > "${GOOGLE_APPLICATION_CREDENTIALS}" &&
-    cat "${GOOGLE_APPLICATION_CREDENTIALS}"
+  command:
+    - cd server && yarn prisma migrate deploy
+run:
+  web: echo "${GCP_CREDENTIALS}" > "${GOOGLE_APPLICATION_CREDENTIALS}" && cd server && yarn start:prod
