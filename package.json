@@ -5,6 +5,10 @@
   "repository": "https://github.com/ManishaKallem/AIuto.git",
   "author": "IgnisDa <ignisda2001@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "deploy": "cd server && yarn prisma migrate deploy",
+    "start": "cd server && yarn start:prod"
+  },
   "workspaces": [
     "frontend",
     "server"
