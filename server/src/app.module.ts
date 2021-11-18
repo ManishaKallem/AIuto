@@ -1,17 +1,19 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
+import { existsSync } from 'fs';
+import * as Joi from 'joi';
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
+import { CoreModule } from './core/core.module';
 import { JournalModule } from './journal/journal.module';
 import { NavigatorModule } from './navigator/navigator.module';
 import { PredictionModule } from './prediction/prediction.module';
-import * as Joi from 'joi';
-import { existsSync } from 'fs';
-import { ScheduleModule } from './schedule/schedule.module';
 import { SocialModule } from './social/social.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
@@ -33,6 +35,7 @@ import { SocialModule } from './social/social.module';
     PredictionModule,
     ScheduleModule,
     SocialModule,
+    CoreModule,
   ],
   controllers: [],
   providers: [],
