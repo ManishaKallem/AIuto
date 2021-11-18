@@ -71,8 +71,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../views/ACT.vue'),
       },
       {
-        path: 'groups',
+        path: 'group',
         component: () => import('../views/Groups.vue'),
+      },
+      {
+        path: 'journal',
+        component: () => import('../views/Journal.vue'),
       }
     ]
 
