@@ -18,6 +18,7 @@
         fill="solid"
         expand="block"
         style="width: 75%; margin: auto; margin-top: 5%"
+        href="/therapy"
       >
         Therapist
       </ion-button>
