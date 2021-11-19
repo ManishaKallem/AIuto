@@ -19,6 +19,11 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
+    path: '/chat-temp',
+    name: 'chat',
+    component: () => import('../views/Chat.vue'),
+  },
+  {
     path: '',
     component: () => import('../views/NavbarView.vue'),
     children: [
