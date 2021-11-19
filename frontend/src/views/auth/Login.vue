@@ -87,7 +87,7 @@ export default defineComponent({
         alert.present();
       } else {
         await setStorageItem('token', resp.data.token);
-        router.push({ name: 'home' });
+        router.push('/');
       }
     };
     return { username, password, handleLogin };

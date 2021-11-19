@@ -50,7 +50,7 @@
         </ion-text>
       </div>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button href="/nav/scheduler">
+        <ion-fab-button href="/scheduler">
           <ion-icon src="assets/icon/create-outline.svg"></ion-icon>
         </ion-fab-button>
       </ion-fab>

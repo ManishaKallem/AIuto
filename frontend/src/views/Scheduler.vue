@@ -159,7 +159,7 @@ export default defineComponent({
           buttons: ['OK'],
         });
         alert.present();
-        router.push('/nav/schedules');
+        router.push('/schedules');
       }
     };
     return {
