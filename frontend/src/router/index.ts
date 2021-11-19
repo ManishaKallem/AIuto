@@ -38,7 +38,7 @@ const routes: Array<RouteRecordRaw> = [
     redirect: '/MoodNavigator',
   },
   {
-    path: '/MoodNavigator',
+    path: '/mood-navigator',
     name: 'MoodNavigator',
     component: () => import('../views/MoodNavigator.vue'),
   },
