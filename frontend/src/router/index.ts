@@ -53,6 +53,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/Scheduler.vue'),
   },
   {
+    path: '/creategr',
+    name: 'Creategroup',
+    component: () => import('../views/Creategr.vue'),
+  },
+  {
     path: '/nav',
     name: 'Navbar',
     component: () => import('../views/Navbar.vue'),
