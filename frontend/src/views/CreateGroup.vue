@@ -2,7 +2,7 @@
   <ion-page>
     <ion-content>
       <ion-toolbar style="margin-bottom: 15%">
-        <ion-back-button default-href="/nav/group" slot="start" />
+        <ion-back-button default-href="/group" slot="start" />
         <ion-label slot="end" style="padding-right: 38%">
           Create Group
         </ion-label>
