@@ -6,6 +6,8 @@
           show-cancel-button="focus"
           clear-icon="close-circle"
           animated="true"
+          v-model="query"
+          @ionChange="filterGroups"
         />
       </ion-toolbar>
       <ion-card style="margin-top: 25%; border-radius: 8%">
@@ -13,16 +15,21 @@
           <ion-text color="primary"><h1>Groups</h1></ion-text>
         </ion-card-header>
         <ion-card-content>
-          <ion-list v-if="groups.length > 0">
-            <ion-item v-for="(group, index) in groups" :key="index">
-              <ion-label>
-                {{ group.title }}
-              </ion-label>
-              <ion-label slot="end">
-                {{ group._count.users }} member(s)
-              </ion-label>
-            </ion-item>
-          </ion-list>
+          <div v-if="groups.length > 0">
+            <ion-list v-if="displayGroups.length > 0">
+              <ion-item v-for="(group, index) in displayGroups" :key="index">
+                <ion-label>
+                  {{ group.title }}
+                </ion-label>
+                <ion-label slot="end">
+                  {{ group._count.users }} member(s)
+                </ion-label>
+              </ion-item>
+            </ion-list>
+            <ion-text v-else>
+              <p>No group matches the query `{{ query }}`</p>
+            </ion-text>
+          </div>
           <ion-text style="text-align: center" v-else color="danger">
             <p>
               You have not joined/created any groups yet. Click the button below
@@ -89,13 +96,26 @@ export default defineComponent({
         },
       ],
     });
+    const query = ref('');
     const groups = ref<any[]>([]);
+    const displayGroups = ref<any[]>([]);
     onMounted(async () => {
       const resp = await socialsService.getGroups();
       groups.value = resp.data;
+      displayGroups.value = resp.data;
     });
-
-    return { groups };
+    const filterGroups = (input: Event) => {
+      const searchString = (input.target as HTMLInputElement).value;
+      if (searchString === '') displayGroups.value = groups.value;
+      else {
+        displayGroups.value = groups.value.filter(
+          (e) =>
+            e.title.toLowerCase().includes(searchString.toLowerCase()) ||
+            e.description.toLowerCase().includes(searchString.toLowerCase()),
+        );
+      }
+    };
+    return { query, groups, displayGroups, filterGroups };
   },
 });
 </script>
