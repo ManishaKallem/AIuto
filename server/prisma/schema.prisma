@@ -67,7 +67,7 @@ model ActivityLog {
 model MoodEntry {
   id     Int      @id @default(autoincrement())
   on     DateTime @default(now()) @db.Date
-  mood   Mood     @default(ORDINARY)
+  mood   Mood     @default(HAPPY)
   user   User     @relation(fields: [userId], references: [id])
   userId String
 
@@ -76,11 +76,12 @@ model MoodEntry {
 
 /// The list of emotions a user is allowed to feel
 enum Mood {
-  HAPPY // 5
-  SAD // 4
-  ORDINARY // 3
-  ANGRY // 2
-  DISTRESSED // 1
+  HAPPY
+  ANGRY
+  ECSTATIC
+  GLOOMY
+  TIRED
+  SAD
 }
 
 // This is synonymous to an alarm

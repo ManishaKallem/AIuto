@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
-import { CreateNavigatorDto, UpdateNavigatorDto } from './dto/navigator.dto';
+import { CreateNavigatorDto } from './dto/navigator.dto';
 
 @Injectable()
 export class NavigatorService {
@@ -10,21 +10,28 @@ export class NavigatorService {
   private logger = new Logger(NavigatorService.name);
 
   async create(createNavigatorDto: CreateNavigatorDto, user: User) {
-    this.logger.log(createNavigatorDto);
-    try {
-      const moodEntry = await this.prisma.moodEntry.create({
+    const existingMoodEntry = await this.prisma.moodEntry.findFirst({
+      where: { on: createNavigatorDto.on, userId: user.id },
+    });
+    if (existingMoodEntry) {
+      // update the existing record
+      const resp = await this.prisma.moodEntry.update({
+        where: { id: existingMoodEntry.id },
         data: {
-          on: createNavigatorDto.on,
           mood: createNavigatorDto.mood,
-          userId: user.id,
         },
       });
-      this.logger.debug(moodEntry);
-      return moodEntry;
-    } catch {
-      // a record for this day already exists
-      return false;
+      return resp;
     }
+    // create a new mood entry
+    const moodEntry = await this.prisma.moodEntry.create({
+      data: {
+        on: createNavigatorDto.on,
+        mood: createNavigatorDto.mood,
+        userId: user.id,
+      },
+    });
+    return moodEntry;
   }
 
   findAll() {
@@ -33,19 +40,6 @@ export class NavigatorService {
 
   findOne(id: number) {
     return `This action returns a #${id} navigator`;
-  }
-
-  async update(id: number, updateNavigatorDto: UpdateNavigatorDto) {
-    try {
-      const moodEntry = await this.prisma.moodEntry.update({
-        where: { id: id },
-        data: { ...updateNavigatorDto },
-      });
-      this.logger.debug(moodEntry);
-      return moodEntry;
-    } catch {
-      return false;
-    }
   }
 
   remove(id: number) {

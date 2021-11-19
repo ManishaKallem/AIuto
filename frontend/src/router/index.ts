@@ -3,22 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/',
-    redirect: '/Welcome',
-  },
-  {
-    path: '/home',
-    name: 'home',
-    component: () => import('../views/Home.vue'),
-  },
-  {
-    path: '/welcome',
-    name: 'welcome',
-    component: () => import('../views/Welcome.vue'),
-  },
-  {
     path: '/auth',
-    redirect: '/auth/login',
     component: () => import('../views/auth/Index.vue'),
     children: [
       {
@@ -34,32 +19,33 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
-    path: '/mood',
-    redirect: '/MoodNavigator',
+    path: '/chat-temp',
+    name: 'chat',
+    component: () => import('../views/Chat.vue'),
   },
   {
-    path: '/MoodNavigator',
-    name: 'MoodNavigator',
-    component: () => import('../views/MoodNavigator.vue'),
-  },
-  {
-    path: '/act',
-    name: 'ACT Bot',
-    component: () => import('../views/ACT.vue'),
-  },
-  {
-    path: '/scheduler',
-    name: 'Scheduler',
-    component: () => import('../views/Scheduler.vue'),
-  },
-  {
-    path: '/nav',
-    name: 'Navbar',
-    component: () => import('../views/Navbar.vue'),
+    path: '',
+    component: () => import('../views/NavbarView.vue'),
     children: [
       {
         path: '',
         component: () => import('../views/Home.vue'),
+      },
+      {
+        path: 'stats',
+        component: () => import('../views/Stats.vue'),
+      },
+      {
+        path: '/act',
+        component: () => import('../views/ACT.vue'),
+      },
+      {
+        path: 'create-group',
+        component: () => import('../views/CreateGroup.vue'),
+      },
+      {
+        path: 'mood-navigator',
+        component: () => import('../views/MoodNavigator.vue'),
       },
       {
         path: 'scheduler',

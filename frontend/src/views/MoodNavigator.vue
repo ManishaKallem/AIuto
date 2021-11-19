@@ -11,73 +11,26 @@
     </ion-header>
     <ion-content>
       <div class="dates">
-        <ion-buttons>
+        <ion-item-group>
           <ion-button
             shape="round"
             slot="start"
-            style="
-              border-radius: 50px;
-              margin-top: 5%;
-              margin-left: 6%;
-              font-size: 150%;
-            "
+            color="secondary"
+            fill="outline"
+            @click="prevDate"
           >
-            {{ CurrentDateDay().date - 2 }}
+            Prev
           </ion-button>
-
           <ion-button
             shape="round"
             slot="start"
-            style="
-              border-radius: 50px;
-              margin-top: 5%;
-              margin-left: 6%;
-              font-size: 150%;
-            "
+            color="secondary"
+            fill="outline"
+            @click="nextDate"
           >
-            {{ CurrentDateDay().date - 1 }}
+            Next
           </ion-button>
-
-          <ion-button
-            shape="round"
-            slot="start"
-            style="
-              border-radius: 50px;
-              margin-top: 5%;
-              margin-left: 6%;
-              font-size: 150%;
-            "
-          >
-            {{ CurrentDateDay().date }}
-          </ion-button>
-
-          <ion-button
-            shape="round"
-            slot="secondary"
-            style="
-              border-radius: 50px;
-              margin-top: 5%;
-              margin-left: 6%;
-              font-size: 150%;
-            "
-          >
-            {{ CurrentDateDay().date + 1 }}
-          </ion-button>
-
-          <ion-button
-            shape="round"
-            slot="end"
-            style="
-              border-radius: 50px;
-              margin-top: 5%;
-              margin-left: 6%;
-              margin-right: 1%;
-              font-size: 150%;
-            "
-          >
-            {{ CurrentDateDay().date + 2 }}
-          </ion-button>
-        </ion-buttons>
+        </ion-item-group>
       </div>
       <div style="padding: 10%; text-align: center">
         <ion-card
@@ -90,104 +43,99 @@
             height: 100%;
           "
         >
-          <div
-            id="app"
-            style="
-              font-size: 200%;
-
-              width: 80%;
-              margin: auto;
-            "
-          >
-            <ion-card-content style="font-size: 130%">
-              {{ CurrentDateDay().date }}<br />
-              {{ CurrentDateDay().day }}
+          <div style="font-size: 200%; width: 80%; margin: auto">
+            <ion-card-content>
+              <div style="font-size: 50px">{{ time.toFormat('dd') }}</div>
+              <div>{{ time.toFormat('LLL') }} {{ time.toFormat('yyyy') }}</div>
             </ion-card-content>
           </div>
         </ion-card>
       </div>
-      <ion-item>
-        <ion-buttons slot="start">
-          <img src="assets/icon/happy.png" style="height: 75px; width: 75px" />
-        </ion-buttons>
-        <ion-buttons slot="end">
-          <img src="assets/icon/angry.png" style="height: 75px; width: 75px" />
-        </ion-buttons>
-      </ion-item>
-      <ion-item>
-        <ion-buttons slot="start">
-          <img
-            src="assets/icon/ecstatic.png"
-            style="height: 75px; width: 75px"
-          />
-        </ion-buttons>
-        <ion-buttons slot="end">
-          <img src="assets/icon/gloomy.png" style="height: 75px; width: 75px" />
-        </ion-buttons>
-      </ion-item>
-      <ion-item>
-        <ion-buttons slot="start">
-          <img src="assets/icon/tired.png" style="height: 75px; width: 75px" />
-        </ion-buttons>
-        <ion-buttons slot="end">
-          <img src="assets/icon/sad.png" style="height: 80px; width: 80px" />
-        </ion-buttons>
-      </ion-item>
-
-      <ion-item>
-        <ion-text>
-          <div
-            style="
-              position: fixed;
-              bottom: 15px;
-              font-size: 140%;
-              color: blueviolet;
-              width: 100%;
-              text-align: center;
-            "
-          >
-            <p>Hey!</p>
-            <p>How are You Feeling Today</p>
-          </div>
+      <ion-grid
+        style="margin-left: auto; margin-right: auto; text-align: center"
+      >
+        <ion-row>
+          <ion-col v-for="(emotion, index) in emotions" :key="index" size="4">
+            <ion-button
+              @click="submitEmotion(emotion)"
+              expand="full"
+              color="tertiary"
+              shape="round"
+            >
+              {{ emotion }}
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div style="text-align: center; margin-top: 5%">
+        <img
+          :src="`assets/icon/${icon.toLowerCase()}.png`"
+          :alt="`${icon} icon`"
+          style="height: 100px; width: 100px"
+        />
+      </div>
+      <div style="text-align: center; margin-top: 5%">
+        <ion-text style="font-size: 140%; width: 100%" color="danger">
+          <p>Hey!</p>
+          <p>How are you feeling today?</p>
         </ion-text>
-      </ion-item>
+      </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
+import moodNavigatorService from '@/services/api/navigator';
 import {
-  IonContent,
   IonBackButton,
-  IonHeader,
-  IonPage,
+  IonButton,
   IonButtons,
   IonCard,
   IonCardContent,
-  IonToolbar,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonItemGroup,
+  IonPage,
+  IonRow,
   IonText,
-  IonItem,
+  IonToolbar,
 } from '@ionic/vue';
-
-import { defineComponent } from 'vue';
 import { useHead } from '@vueuse/head';
+import { DateTime } from 'luxon';
+import { computed, defineComponent, onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+enum Emotions {
+  HAPPY = 'HAPPY',
+  ANGRY = 'ANGRY',
+  ECSTATIC = 'ECSTATIC',
+  GLOOMY = 'GLOOMY',
+  TIRED = 'TIRED',
+  SAD = 'SAD',
+}
 
 export default defineComponent({
   components: {
     IonPage,
     IonContent,
+    IonRow,
     IonButtons,
+    IonItemGroup,
     IonCard,
     IonCardContent,
     IonBackButton,
+    IonGrid,
+    IonCol,
     IonHeader,
     IonToolbar,
     IonText,
-    IonItem,
+    IonButton,
   },
   setup() {
     useHead({
-      title: 'MoodNavigator',
+      title: 'Mood navigator',
       meta: [
         {
           name: 'description',
@@ -195,57 +143,36 @@ export default defineComponent({
         },
       ],
     });
-  },
-  methods: {
-    /**
-     * need function for showing the emoji in card when selected
-     * also need one for the dated buttons on top
-     * i need to get better at using buttons */
-    CurrentDateDay() {
-      const current = new Date();
-      const date = current.getDate();
-      const days = current.getDay();
-      let day = 'day';
+    const icon = ref('HAPPY');
+    const route = useRoute();
+    const router = useRouter();
+    const date = computed(() => route.query.date as string);
 
-      switch (days) {
-        case 0:
-          day = 'Sunday';
-          break;
-
-        case 1:
-          day = 'Monday';
-          break;
-
-        case 2:
-          day = 'Tuesday';
-          break;
-
-        case 3:
-          day = 'Wednesday';
-          break;
-
-        case 4:
-          day = 'Thursday';
-          break;
-
-        case 5:
-          day = 'Friday';
-          break;
-
-        case 6:
-          day = 'Saturday';
-          break;
-
-        default:
-          day = 'everything is a lie';
-          break;
-      }
-
-      return {
-        date,
-        day,
-      };
-    },
+    const EMOTIONS = Object.keys(Emotions);
+    const submitEmotion = async (emotion: string) => {
+      icon.value = emotion;
+      await moodNavigatorService.createMoodNavigatorRecord(emotion, date.value);
+    };
+    const prevDate = () =>
+      router.push({
+        query: { date: DateTime.fromISO(date.value).minus({ day: 1 }).toISO() },
+      });
+    const nextDate = () =>
+      router.push({
+        query: { date: DateTime.fromISO(date.value).plus({ day: 1 }).toISO() },
+      });
+    const getTime = computed(() => DateTime.fromISO(date.value));
+    onMounted(() => {
+      if (!date.value) router.push({ query: { date: DateTime.now().toISO() } });
+    });
+    return {
+      emotions: EMOTIONS,
+      submitEmotion,
+      icon,
+      prevDate,
+      nextDate,
+      time: getTime,
+    };
   },
 });
 </script>
