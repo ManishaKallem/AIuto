@@ -3,10 +3,10 @@
     <ion-content>
       <div class="date">
         <p style="font-size: large; text-align: center">
-          {{ day }}
+          {{ time.day }}
         </p>
-        <h1 style="text-align: center">{{ date }}</h1>
-        <p style="text-align: center">{{ month }} {{ year }}</p>
+        <h1 style="text-align: center">{{ time.date }}</h1>
+        <p style="text-align: center">{{ time.month }} {{ time.year }}</p>
       </div>
       <form @submit.prevent="handleSubmit">
         <ion-card style="border-radius: 7%">
@@ -35,7 +35,7 @@
             <ion-label>Repeat</ion-label>
             <ion-select interface="popover" v-model="repeatEach">
               <ion-select-option
-                :value="RepeatEach.NEVER"
+                :value="option"
                 v-for="(option, index) in RepeatEach"
                 :key="index"
               >
@@ -78,24 +78,25 @@
 </template>
 
 <script lang="ts">
+import scheduleService from '@/services/api/schedule';
 import {
-  IonContent,
-  IonPage,
+  alertController,
   IonButton,
   IonCard,
-  IonInput,
-  IonTextarea,
-  IonLabel,
+  IonContent,
   IonDatetime,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonPage,
   IonSelect,
   IonSelectOption,
-  alertController,
-  IonItem,
+  IonTextarea,
 } from '@ionic/vue';
-import { defineComponent, ref } from 'vue';
 import { useHead } from '@vueuse/head';
-import scheduleService from '@/services/api/schedule';
 import { DateTime } from 'luxon';
+import { defineComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   components: {
@@ -117,7 +118,7 @@ export default defineComponent({
     const startTime = ref('');
     const endTime = ref('');
     const repeatEach = ref('');
-    const time = DateTime.now();
+    const router = useRouter();
 
     enum RepeatEach {
       NEVER = 'NEVER',
@@ -158,8 +159,10 @@ export default defineComponent({
           buttons: ['OK'],
         });
         alert.present();
+        router.push('/nav/schedules');
       }
     };
+    const time = DateTime.now();
     return {
       note,
       title,
@@ -168,10 +171,12 @@ export default defineComponent({
       endTime,
       RepeatEach,
       handleSubmit,
-      day: time.toFormat('EEEE'),
-      month: time.toFormat('MMM'),
-      year: time.toFormat('y'),
-      date: time.toFormat('d'),
+      time: {
+        day: time.toFormat('EEEE'),
+        month: time.toFormat('MMM'),
+        year: time.toFormat('y'),
+        date: time.toFormat('d'),
+      },
     };
   },
 });
