@@ -3,10 +3,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-buttons>
-          <ion-back-button
-            slot="start"
-            default-href="/Welcome"
-          ></ion-back-button>
+          <ion-back-button slot="start" default-href=""></ion-back-button>
         </ion-buttons>
       </ion-toolbar>
       <img src="/assets/login.png" />
@@ -26,6 +23,12 @@
         </div>
       </ion-item>
     </ion-card>
+    <div style="text-align: center; position: fixed; bottom: 15px; width: 100%">
+      <p style="text-align: center">Don't have an account?<br /></p>
+      <a href="/auth/register" style="text-align: center; width: 100%"
+        >Register now</a
+      >
+    </div>
   </form>
 </template>
 
