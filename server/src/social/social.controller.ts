@@ -9,6 +9,7 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 import { CurrentUser } from 'src/auth/current-user.decorator';
 import { ApiAuthGuard } from 'src/auth/guards/api-auth.guard';
@@ -16,6 +17,7 @@ import { CreateJournalDto } from 'src/journal/dto/journal.dto';
 import { SocialService } from './social.service';
 
 @Controller('social')
+@ApiTags('social')
 export class SocialController {
   constructor(private readonly socialService: SocialService) {}
 
