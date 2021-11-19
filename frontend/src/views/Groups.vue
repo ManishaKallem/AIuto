@@ -45,7 +45,7 @@
       </ion-card>
 
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button href="/nav/creategr">
+        <ion-fab-button href="/creategr">
           <ion-icon src="assets/icon/add-circle-outline.svg"></ion-icon>
         </ion-fab-button>
       </ion-fab>
@@ -91,12 +91,12 @@ export default defineComponent({
   },
   setup() {
     useHead({
-      title: 'Scheduler',
+      title: 'Groups',
       meta: [
         {
           name: 'description',
           content:
-            'Scheduler feature of AIuto which will help in setting tasks for the future',
+            'Groups feature of AIuto which will show the groups you have joined',
         },
       ],
     });
