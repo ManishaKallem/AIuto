@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 import { CurrentUser } from 'src/auth/current-user.decorator';
@@ -18,5 +18,11 @@ export class ScheduleController {
     @CurrentUser() user: User,
   ) {
     return this.scheduleService.create(createScheduleDto, user);
+  }
+
+  @UseGuards(ApiAuthGuard)
+  @Get()
+  getSchedules(@CurrentUser() user: User) {
+    return this.scheduleService.getSchedules(user);
   }
 }
