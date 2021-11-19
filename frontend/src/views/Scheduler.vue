@@ -78,6 +78,7 @@
 </template>
 
 <script lang="ts">
+import { getCurrentTime } from '@/commons/time';
 import scheduleService from '@/services/api/schedule';
 import {
   alertController,
@@ -94,7 +95,6 @@ import {
   IonTextarea,
 } from '@ionic/vue';
 import { useHead } from '@vueuse/head';
-import { DateTime } from 'luxon';
 import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -162,7 +162,6 @@ export default defineComponent({
         router.push('/nav/schedules');
       }
     };
-    const time = DateTime.now();
     return {
       note,
       title,
@@ -171,12 +170,7 @@ export default defineComponent({
       endTime,
       RepeatEach,
       handleSubmit,
-      time: {
-        day: time.toFormat('EEEE'),
-        month: time.toFormat('MMM'),
-        year: time.toFormat('y'),
-        date: time.toFormat('d'),
-      },
+      time: getCurrentTime(),
     };
   },
 });
