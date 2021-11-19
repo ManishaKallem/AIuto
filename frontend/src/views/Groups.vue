@@ -6,71 +6,60 @@
           show-cancel-button="focus"
           clear-icon="close-circle"
           animated="true"
-        ></ion-searchbar>
+        />
       </ion-toolbar>
-
       <ion-card style="margin-top: 25%; border-radius: 8%">
-        <ion-card-header style="text-align: center; font-size: 120%"
-          >Groups</ion-card-header
-        >
+        <ion-card-header style="text-align: center">
+          <ion-text color="primary"><h1>Groups</h1></ion-text>
+        </ion-card-header>
         <ion-card-content>
-          <ion-item-group>
-            <ion-list>
-              <ion-item-divider>
-                <ion-avatar>
-                  <img src="assets/icon/diary.png" />
-                </ion-avatar>
-
-                <ion-label>Reading group</ion-label>
-                <ion-label slot="end">17 Members</ion-label>
-              </ion-item-divider>
-
-              <ion-item-divider>
-                <ion-avatar>
-                  <img src="assets/icon/favicon.png" />
-                </ion-avatar>
-                <ion-label>Gym group</ion-label>
-                <ion-label slot="end">24 Members</ion-label>
-              </ion-item-divider>
-              <ion-item-divider>
-                <ion-avatar>
-                  <img src="assets/icon/icon.png" />
-                </ion-avatar>
-                <ion-label>Chorus group</ion-label>
-                <ion-label slot="end">35 Members</ion-label>
-              </ion-item-divider>
-            </ion-list>
-          </ion-item-group>
+          <ion-list v-if="groups.length > 0">
+            <ion-item v-for="(group, index) in groups" :key="index">
+              <ion-label>
+                {{ group.title }}
+              </ion-label>
+              <ion-label slot="end">
+                {{ group._count.users }} member(s)
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-text style="text-align: center" v-else color="danger">
+            <p>
+              You have not joined/created any groups yet. Click the button below
+              to do so.
+            </p>
+          </ion-text>
         </ion-card-content>
       </ion-card>
-
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button href="/creategr">
+        <ion-fab-button href="/create-group">
           <ion-icon src="assets/icon/add-circle-outline.svg"></ion-icon>
         </ion-fab-button>
       </ion-fab>
     </ion-content>
   </ion-page>
 </template>
+
 <script lang="ts">
+import socialsService from '@/services/api/socials';
 import {
-  IonContent,
-  IonPage,
-  IonToolbar,
-  IonSearchbar,
   IonCard,
   IonCardContent,
+  IonCardHeader,
+  IonContent,
   IonFab,
   IonFabButton,
-  IonAvatar,
-  IonList,
-  IonItemDivider,
+  IonIcon,
+  IonItem,
   IonLabel,
-  IonItemGroup,
-  IonCardHeader,
+  IonList,
+  IonPage,
+  IonSearchbar,
+  IonText,
+  IonToolbar,
 } from '@ionic/vue';
-import { defineComponent } from 'vue';
 import { useHead } from '@vueuse/head';
+import { defineComponent, onMounted, ref } from 'vue';
 
 export default defineComponent({
   components: {
@@ -82,11 +71,11 @@ export default defineComponent({
     IonFab,
     IonFabButton,
     IonCardContent,
-    IonAvatar,
+    IonIcon,
     IonList,
-    IonItemDivider,
+    IonItem,
+    IonText,
     IonLabel,
-    IonItemGroup,
     IonCardHeader,
   },
   setup() {
@@ -100,6 +89,13 @@ export default defineComponent({
         },
       ],
     });
+    const groups = ref<any[]>([]);
+    onMounted(async () => {
+      const resp = await socialsService.getGroups();
+      groups.value = resp.data;
+    });
+
+    return { groups };
   },
 });
 </script>
