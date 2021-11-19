@@ -2578,10 +2578,10 @@
     "@typescript-eslint/types" "4.31.1"
     eslint-visitor-keys "^2.0.0"
 
-"@vee-validate/rules@^4.5.2":
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/@vee-validate/rules/-/rules-4.5.2.tgz#386bc6c42e3beeda31c20cf241c36c0576ebb4df"
-  integrity sha512-gulGJ1nkAjKsBsFOXV/qNLfleUmzyauD/sMqp7ukzyPgAUEWkx+p1Y6bFsQXx1LEzP1mHhjzLbf5F6XfvfLuKg==
+"@vee-validate/rules@4.5.6":
+  version "4.5.6"
+  resolved "https://registry.yarnpkg.com/@vee-validate/rules/-/rules-4.5.6.tgz#a0d96781d3aeaa50108dc5acbeb441e511817f20"
+  integrity sha512-bi9rytxS8mtYyqrodZmg4SEkqmEKLhD9G0Qxh1iekbbu5YBuu53Mq/6h8Zqjc/ZJZuR+bG12OAX7m3qG6rQutg==
 
 "@vue/babel-helper-vue-jsx-merge-props@^1.2.1":
   version "1.2.1"
