@@ -20,7 +20,7 @@
     "@ionic/vue": "^5.4.0",
     "@ionic/vue-router": "^5.4.0",
     "@vee-validate/rules": "^4.5.2",
-    "@vueuse/head": "^0.6.0",
+    "@vueuse/head": "0.7.2",
     "axios": "^0.21.4",
     "core-js": "^3.6.5",
     "luxon": "^2.1.1",
