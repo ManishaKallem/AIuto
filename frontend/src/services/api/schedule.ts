@@ -1,6 +1,10 @@
 import http from '@/commons/http';
 
 export default new (class {
+  async getSchedules() {
+    return await http.get('/schedule');
+  }
+
   async createSchedule(
     startTime: string,
     endTime: string,
