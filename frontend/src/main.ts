@@ -16,7 +16,6 @@ import { createHead } from '@vueuse/head';
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
-import { key, store } from './store';
 import VeeValidatePlugin from './services/validation';
 /* Theme variables */
 import './theme/variables.css';
@@ -30,7 +29,6 @@ const app = createApp(App)
   .use(VeeValidatePlugin);
 
 // pass the injection key
-app.use(store, key);
 
 router.isReady().then(() => {
   app.mount('#app');

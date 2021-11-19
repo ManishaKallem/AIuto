@@ -10,6 +10,7 @@
         "wakatime.vscode-wakatime",
         "gruntfuggly.todo-tree",
         "rangav.vscode-thunder-client",
-        "johnsoncodehk.volar"
+        "johnsoncodehk.volar",
+        "bungcip.better-toml"
     ]
 }

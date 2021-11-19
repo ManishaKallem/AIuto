@@ -110,16 +110,17 @@
 import userService from '@/services/api/user';
 import {
   alertController,
-  IonButton,
   IonBackButton,
-  IonToolbar,
-  IonHeader,
+  IonButton,
+  IonButtons,
   IonCard,
+  IonHeader,
   IonInput,
-  IonItemGroup,
   IonItem,
+  IonItemGroup,
   IonLabel,
   IonText,
+  IonToolbar,
 } from '@ionic/vue';
 import { useHead } from '@vueuse/head';
 import { defineComponent } from 'vue';
@@ -136,6 +137,7 @@ export default defineComponent({
     IonInput,
     IonItemGroup,
     IonBackButton,
+    IonButtons,
     IonToolbar,
     IonHeader,
     IonLabel,
