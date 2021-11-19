@@ -51,7 +51,6 @@ const routes: Array<RouteRecordRaw> = [
     path: '/scheduler',
     name: 'Scheduler',
     component: () => import('../views/Scheduler.vue'),
-    
   },
   {
     path: '/nav',
@@ -59,8 +58,8 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/Navbar.vue'),
     children: [
       {
-      path: '',
-      component: () => import('../views/Home.vue'),
+        path: '',
+        component: () => import('../views/Home.vue'),
       },
       {
         path: 'scheduler',
@@ -75,12 +74,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../views/Groups.vue'),
       },
       {
-        path: 'journal',
-        component: () => import('../views/Journal.vue'),
-      }
-    ]
-
-  }
+        path: 'schedules',
+        component: () => import('../views/Schedules.vue'),
+      },
+    ],
+  },
 ];
 
 const router = createRouter({
