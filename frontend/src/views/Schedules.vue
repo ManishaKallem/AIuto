@@ -2,7 +2,6 @@
   <ion-page>
     <ion-content>
       <div class="date">
-        <ion-icon src="assets/icon/arrow-back-outline.svg"></ion-icon>
         <p style="font-size: large; text-align: center">
           {{ time.day }}
         </p>
@@ -86,7 +85,7 @@ export default defineComponent({
     IonFabButton,
   },
   setup() {
-    const schedules = ref([]);
+    const schedules = ref<any[]>([]);
     useHead({
       title: 'Scheduler',
       meta: [
