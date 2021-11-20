@@ -128,8 +128,9 @@ export default defineComponent({
         const no = resp.data[1].value * 100;
         let message;
         if (yes > no)
-          message = `You need mental treatment (${yes.toFixed(2)}%)`;
-        else message = `You do not need mental treatment (${no.toFixed(2)}%)`;
+          message = `You need mental treatment (${yes.toFixed(2)}% sure)`;
+        else
+          message = `You do not need mental treatment (${no.toFixed(2)}% sure)`;
         const alert = await alertController.create({
           header: 'Success',
           message: message,
