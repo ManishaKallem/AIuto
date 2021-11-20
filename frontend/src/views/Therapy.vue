@@ -9,203 +9,45 @@
     </ion-header>
 
     <ion-content>
-      <ion-card>
-        <ion-card-header
-          >Are you stressed about your daily work?
-        </ion-card-header>
-        <ion-card-content>
-          <ion-chip>
-            <ion-label>Never</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>Sometimes</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>Often</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>Rarely</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>NA</ion-label>
-          </ion-chip>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card>
-        <ion-card-header
-          >Any family history for mental illness?
-        </ion-card-header>
-        <ion-card-content>
-          <ion-chip>
-            <ion-label>Yes</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>No</ion-label>
-          </ion-chip>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card>
-        <ion-card-header>
-          Do you think you will be benefited from a psychological therapy?
-        </ion-card-header>
-        <ion-card-content>
-          <ion-chip>
-            <ion-label>Yes</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>No</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label> Don't Know </ion-label>
-          </ion-chip>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card>
-        <ion-card-header>
-          Do you have any mental health care options in your mind?
-        </ion-card-header>
-        <ion-card-content>
-          <ion-chip>
-            <ion-label> Yes </ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label> No </ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label> Not Sure </ion-label>
-          </ion-chip>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card>
-        <ion-card-header>
-          Are your coworkers (if any) making you feel stressed or irritated?
-        </ion-card-header>
-        <ion-card-content>
-          <ion-chip>
-            <ion-label>Yes</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>No</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>Some Of Them</ion-label>
-          </ion-chip>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card>
-        <ion-card-header> Do you often feel confused? </ion-card-header>
-        <ion-card-content>
-          <ion-chip>
-            <ion-label>Yes</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>No</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>Don't Know</ion-label>
-          </ion-chip>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card>
-        <ion-card-header>
-          Are you seeking any help for your mental illness?
-        </ion-card-header>
-        <ion-card-content>
-          <ion-chip>
-            <ion-label>Yes </ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>No</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>Don't Know</ion-label>
-          </ion-chip>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card>
-        <ion-card-header>
-          Are you seeking any help for your mental illness?
-        </ion-card-header>
-        <ion-card-content>
-          <ion-chip>
-            <ion-label>Somewhat Easy</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>Very Easy</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>Somewhat Difficult</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label> Very Difficult </ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>Don't Know</ion-label>
-          </ion-chip>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card>
-        <ion-card-header>
-          Are you suffering from any physical illness?
-        </ion-card-header>
-        <ion-card-content>
-          <ion-chip>
-            <ion-label>Yes</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>No</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>Maybe</ion-label>
-          </ion-chip>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card>
-        <ion-card-header> Please select your Gender: </ion-card-header>
-        <ion-card-content>
-          <ion-chip>
-            <ion-label>Male</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>Female</ion-label>
-          </ion-chip>
-          <ion-chip>
-            <ion-label>Others</ion-label>
-          </ion-chip>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card>
-        <ion-card-header> Please enter your Age </ion-card-header>
-        <ion-card-content>
-          <ion-input placeholder="Age"></ion-input>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card>
-        <ion-card-header>
-          Write anything here which you want us to know about your mental health
-          to predict your state of illness.
-        </ion-card-header>
-        <ion-card-content>
-          <ion-textarea placeholder="Anything you want" rows="3">
-          </ion-textarea>
-        </ion-card-content>
-      </ion-card>
-      <ion-textarea></ion-textarea>
+      <div v-for="(column, index) in columns" :key="index">
+        <ion-card v-if="!column.defaultValue">
+          <ion-card-header>{{ column.description }}</ion-card-header>
+          <ion-card-content>
+            <div v-if="column.options">
+              <ion-chip
+                v-for="(option, indexOption) in column.options"
+                :key="indexOption"
+                :outline="column.value === option ? false : true"
+                @click="selectOption(option, column.id)"
+              >
+                <ion-label>{{ option }}</ion-label>
+              </ion-chip>
+            </div>
+            <div v-else-if="column.textBox">
+              <ion-textarea rows="3" />
+            </div>
+            <div v-else>
+              <ion-input @input="enterValue($event, column.id)" />
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+      <div style="text-align: center">
+        <ion-button
+          fill="clear"
+          size="large"
+          @click="submit"
+          :disabled="loading"
+        >
+          Submit
+        </ion-button>
+      </div>
     </ion-content>
   </ion-page>
 </template>
+
 <script lang="ts">
+import predictionService from '@/services/api/prediction';
 import {
   IonPage,
   IonContent,
@@ -218,16 +60,20 @@ import {
   IonCardHeader,
   IonChip,
   IonLabel,
+  IonButton,
   IonHeader,
   IonButtons,
+  alertController,
 } from '@ionic/vue';
 import { useHead } from '@vueuse/head';
-import { defineComponent } from 'vue';
+import { DateTime } from 'luxon';
+import { defineComponent, onMounted, ref } from 'vue';
 
 export default defineComponent({
   components: {
     IonPage,
     IonCard,
+    IonButton,
     IonContent,
     IonCardContent,
     IonToolbar,
@@ -242,14 +88,68 @@ export default defineComponent({
   },
   setup() {
     useHead({
-      title: 'ACT Bot',
+      title: 'Therapy',
       meta: [
         {
           name: 'description',
-          content: 'act bot feature of aiuto',
+          content: 'Therapy bot',
         },
       ],
     });
+    const columns = ref<any[]>([]);
+    const loading = ref(false);
+
+    const selectOption = (value: string, id: string) => {
+      const index = columns.value.findIndex((e) => e.id === id);
+      columns.value[index].value = value;
+    };
+
+    const enterValue = (event: Event, id: string) => {
+      const index = columns.value.findIndex((e) => e.id === id);
+      const value = (event.target as HTMLInputElement).value;
+      columns.value[index].value = value;
+    };
+
+    const submit = async () => {
+      loading.value = true;
+      const [status, resp] = await predictionService.mentalHealthPredict(
+        columns.value,
+      );
+      console.log(resp);
+      if (!status) {
+        const alert = await alertController.create({
+          header: 'Failure',
+          message: resp,
+          buttons: ['OK'],
+        });
+        alert.present();
+      } else {
+        const yes = resp.data[0].value * 100;
+        const no = resp.data[1].value * 100;
+        let message;
+        if (yes > no)
+          message = `You need mental treatment (${yes.toFixed(2)}%)`;
+        else message = `You do not need mental treatment (${no.toFixed(2)}%)`;
+        const alert = await alertController.create({
+          header: 'Success',
+          message: message,
+          buttons: ['OK'],
+        });
+        alert.present();
+      }
+      loading.value = false;
+    };
+
+    onMounted(async () => {
+      const resp = await predictionService.getMentalHealthColumns();
+      columns.value = resp.data.map((c: any) => {
+        if (c.name === 'Timestamp')
+          c.defaultValue = DateTime.now().toFormat('yyyy-MM-dd hh:mm:ss');
+        if (c.defaultValue) c.value = c.defaultValue;
+        return c;
+      });
+    });
+    return { columns, loading, enterValue, selectOption, submit };
   },
 });
 </script>
