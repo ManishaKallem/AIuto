@@ -7,8 +7,8 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-
-    <ion-content>
+    <ion-loading :is-open="isFetching" message="Loading questions..." />
+    <ion-content v-if="!isFetching">
       <div v-for="(column, index) in columns" :key="index">
         <ion-card v-if="!column.defaultValue">
           <ion-card-header>{{ column.description }}</ion-card-header>
@@ -63,6 +63,7 @@ import {
   IonButton,
   IonHeader,
   IonButtons,
+  IonLoading,
   alertController,
 } from '@ionic/vue';
 import { useHead } from '@vueuse/head';
@@ -83,6 +84,7 @@ export default defineComponent({
     IonHeader,
     IonButtons,
     IonCardHeader,
+    IonLoading,
     IonChip,
     IonLabel,
   },
@@ -98,6 +100,7 @@ export default defineComponent({
     });
     const columns = ref<any[]>([]);
     const loading = ref(false);
+    const isFetching = ref(true);
 
     const selectOption = (value: string, id: string) => {
       const index = columns.value.findIndex((e) => e.id === id);
@@ -149,8 +152,9 @@ export default defineComponent({
         if (c.defaultValue) c.value = c.defaultValue;
         return c;
       });
+      isFetching.value = false;
     });
-    return { columns, loading, enterValue, selectOption, submit };
+    return { columns, loading, enterValue, selectOption, submit, isFetching };
   },
 });
 </script>

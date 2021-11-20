@@ -14,13 +14,16 @@
           <ion-title color="primary">Welcome to AIuto!</ion-title>
         </ion-card-header>
         <ion-card-content>
-          <ion-item-group>
+          <ion-item-group v-if="isLoggedIn">
             <a href="/auth/login">
               <ion-item-divider>Login</ion-item-divider>
             </a>
             <a href="/auth/register">
               <ion-item-divider>Register</ion-item-divider>
             </a>
+          </ion-item-group>
+          <ion-item-group v-else>
+            <ion-item-divider @click="logout">Logout</ion-item-divider>
           </ion-item-group>
           <ion-item-group>
             <a href="/mood-navigator">
@@ -34,6 +37,7 @@
 </template>
 
 <script lang="ts">
+import { getStorageItem, removeStorageItem } from '@/services/storage';
 import {
   IonCard,
   IonCardContent,
@@ -49,7 +53,8 @@ import {
   IonToolbar,
 } from '@ionic/vue';
 import { useHead } from '@vueuse/head';
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   setup() {
@@ -62,12 +67,22 @@ export default defineComponent({
         },
       ],
     });
+    const isLoggedIn = ref(false);
+    const router = useRouter();
     const refresh = (ev: CustomEvent) => {
       setTimeout(() => {
         ev.detail.complete();
       }, 3000);
     };
-    return { refresh };
+    const logout = async () => {
+      await removeStorageItem('token');
+      router.push('/auth/login');
+    };
+    onMounted(async () => {
+      const token = await getStorageItem('token');
+      if (!token) isLoggedIn.value = true;
+    });
+    return { refresh, isLoggedIn, logout };
   },
   components: {
     IonContent,
