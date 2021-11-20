@@ -19,15 +19,15 @@
       </ion-item>
       <ion-item>
         <div style="padding-left: 35%">
-          <ion-button type="submit">Submit</ion-button>
+          <ion-button type="submit" :disabled="loading">Submit</ion-button>
         </div>
       </ion-item>
     </ion-card>
     <div style="text-align: center; position: fixed; bottom: 15px; width: 100%">
       <p style="text-align: center">Don't have an account?<br /></p>
-      <a href="/auth/register" style="text-align: center; width: 100%"
-        >Register now</a
-      >
+      <a href="/auth/register" style="text-align: center; width: 100%">
+        Register now
+      </a>
     </div>
   </form>
 </template>
@@ -76,11 +76,14 @@ export default defineComponent({
     const router = useRouter();
     const username = ref('');
     const password = ref('');
+    const loading = ref(false);
     const handleLogin = async () => {
+      loading.value = true;
       const [status, resp] = await authService.loginUser(
         username.value,
         password.value,
       );
+      loading.value = false;
       if (!status) {
         const alert = await alertController.create({
           header: 'Failure',
@@ -93,7 +96,7 @@ export default defineComponent({
         router.push('/');
       }
     };
-    return { username, password, handleLogin };
+    return { username, password, handleLogin, loading };
   },
 });
 </script>

@@ -159,15 +159,20 @@ export default defineComponent({
   }),
   methods: {
     async handleRegister(values: FormInput) {
+      this.apiErrors.passwordErrors = [];
+      this.apiErrors.usernameErrors = [];
+      this.apiErrors.emailErrors = [];
       const [status, resp] = await userService.create(
         values.email,
         values.username,
         values.password,
       );
       if (!status) {
-        this.apiErrors.usernameErrors = resp.resp.usernameErrors || [];
-        this.apiErrors.emailErrors = resp.resp.emailErrors || [];
-        this.apiErrors.passwordErrors = resp.resp.passwordErrors || [];
+        if (resp.message) this.apiErrors.passwordErrors = resp.message || [];
+        else {
+          this.apiErrors.usernameErrors = resp.resp.usernameErrors || [];
+          this.apiErrors.emailErrors = resp.resp.emailErrors || [];
+        }
         const alert = await alertController.create({
           header: 'Fail',
           message: 'There were some errors in registering with these details',
@@ -200,7 +205,6 @@ export default defineComponent({
         },
       ],
     });
-    return {};
   },
 });
 </script>
