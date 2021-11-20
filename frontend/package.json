@@ -1,10 +1,11 @@
 {
-  "name": "AIuto",
+  "name": "aiuto",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --port 3000",
     "build": "vue-cli-service build",
+    "resources": "cordova-res android --skip-config --copy",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
@@ -22,6 +23,7 @@
     "@vee-validate/rules": "^4.5.2",
     "@vueuse/head": "^0.6.0",
     "axios": "^0.21.4",
+    "cordova-res": "^0.15.3",
     "core-js": "^3.6.5",
     "luxon": "^2.1.1",
     "vee-validate": "^4.5.2",
