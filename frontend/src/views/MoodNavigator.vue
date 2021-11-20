@@ -1,16 +1,7 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons>
-          <ion-back-button slot="start" default-href="/Welcome">
-            <!-- default-href will change later -->
-          </ion-back-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
     <ion-content>
-      <div class="dates">
+      <div class="dates" style="text-align: center; margin-top: 20px">
         <ion-item-group>
           <ion-button
             shape="round"
@@ -18,6 +9,7 @@
             color="secondary"
             fill="outline"
             @click="prevDate"
+            style="margin-right: 10px"
           >
             Prev
           </ion-button>
@@ -27,6 +19,7 @@
             color="secondary"
             fill="outline"
             @click="nextDate"
+            style="margin-left: 10px"
           >
             Next
           </ion-button>
@@ -87,20 +80,16 @@
 <script lang="ts">
 import moodNavigatorService from '@/services/api/navigator';
 import {
-  IonBackButton,
   IonButton,
-  IonButtons,
   IonCard,
   IonCardContent,
   IonCol,
   IonContent,
   IonGrid,
-  IonHeader,
   IonItemGroup,
   IonPage,
   IonRow,
   IonText,
-  IonToolbar,
 } from '@ionic/vue';
 import { useHead } from '@vueuse/head';
 import { DateTime } from 'luxon';
@@ -121,15 +110,11 @@ export default defineComponent({
     IonPage,
     IonContent,
     IonRow,
-    IonButtons,
     IonItemGroup,
     IonCard,
     IonCardContent,
-    IonBackButton,
     IonGrid,
     IonCol,
-    IonHeader,
-    IonToolbar,
     IonText,
     IonButton,
   },

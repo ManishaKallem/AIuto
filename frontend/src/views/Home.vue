@@ -22,6 +22,11 @@
               <ion-item-divider>Register</ion-item-divider>
             </a>
           </ion-item-group>
+          <ion-item-group>
+            <a href="/mood-navigator">
+              <ion-item-divider>Mood Navigator</ion-item-divider>
+            </a>
+          </ion-item-group>
         </ion-card-content>
       </ion-card>
     </ion-content>
