@@ -17,7 +17,11 @@
         <ion-card-content>
           <div v-if="groups.length > 0">
             <ion-list v-if="displayGroups.length > 0">
-              <ion-item v-for="(group, index) in displayGroups" :key="index">
+              <ion-item
+                v-for="(group, index) in displayGroups"
+                :key="index"
+                :href="`/group/${group.id}`"
+              >
                 <ion-label>
                   {{ group.title }}
                 </ion-label>
@@ -38,6 +42,11 @@
           </ion-text>
         </ion-card-content>
       </ion-card>
+      <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+        <ion-fab-button @click="askInviteString">
+          <ion-icon :icon="arrowRedoOutline" />
+        </ion-fab-button>
+      </ion-fab>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button href="/create-group">
           <ion-icon src="assets/icon/add-circle-outline.svg"></ion-icon>
@@ -48,6 +57,7 @@
 </template>
 
 <script lang="ts">
+import EnterGroupInviteStringVue from '@/components/EnterGroupInviteString.vue';
 import socialsService from '@/services/api/socials';
 import {
   IonCard,
@@ -64,9 +74,11 @@ import {
   IonSearchbar,
   IonText,
   IonToolbar,
+  popoverController,
 } from '@ionic/vue';
 import { useHead } from '@vueuse/head';
 import { defineComponent, onMounted, ref } from 'vue';
+import { arrowRedoOutline } from 'ionicons/icons';
 
 export default defineComponent({
   components: {
@@ -115,7 +127,25 @@ export default defineComponent({
         );
       }
     };
-    return { query, groups, displayGroups, filterGroups };
+    const askInviteString = async (ev: Event) => {
+      const popover = await popoverController.create({
+        component: EnterGroupInviteStringVue,
+        cssClass: 'my-custom-class',
+        event: ev,
+        translucent: true,
+      });
+      await popover.present();
+      const { role } = await popover.onDidDismiss();
+      console.log('onDidDismiss resolved with role', role);
+    };
+    return {
+      query,
+      groups,
+      displayGroups,
+      filterGroups,
+      askInviteString,
+      arrowRedoOutline,
+    };
   },
 });
 </script>

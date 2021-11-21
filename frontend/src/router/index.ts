@@ -19,8 +19,8 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
-    path: '/chat-temp',
-    name: 'chat',
+    path: '/group/:id',
+    name: 'group-chat',
     component: () => import('../views/Chat.vue'),
   },
   {
@@ -65,8 +65,8 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'therapy',
-        component: () => import('../views/Therapy.vue')
-      }
+        component: () => import('../views/Therapy.vue'),
+      },
     ],
   },
 ];
