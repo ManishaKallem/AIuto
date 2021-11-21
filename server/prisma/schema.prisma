@@ -24,17 +24,30 @@ model User {
   MoodTrack     MoodEntry[]
   Schedule      Schedule[]
   adminOfGroups Group[]     @relation("groupAdmin")
+  messages      Message[]
 }
 
 /// Model to track groups
 model Group {
-  id           String  @id @default(uuid()) @db.Uuid
+  id           String    @id @default(uuid()) @db.Uuid
   title        String
   description  String?
   users        User[]
-  inviteString String? @unique @db.Char(10)
-  admin        User?   @relation("groupAdmin", fields: [userId], references: [id], onDelete: SetNull)
+  inviteString String?   @unique @db.Char(10)
+  admin        User?     @relation("groupAdmin", fields: [userId], references: [id], onDelete: SetNull)
   userId       String?
+  messages     Message[]
+}
+
+/// Model to track messages in groups
+model Message {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId   String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  contents  String
 }
 
 // ## Journal App ##
