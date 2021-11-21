@@ -30,6 +30,7 @@
               <ion-button
                 type="submit"
                 style="text-align: center; width: 50%; margin: auto"
+                :disabled="loading"
               >
                 Create
               </ion-button>
@@ -78,6 +79,7 @@ export default defineComponent({
   setup() {
     const title = ref('');
     const description = ref('');
+    const loading = ref(false);
     useHead({
       title: 'Create Group',
       meta: [
@@ -90,13 +92,14 @@ export default defineComponent({
     });
     const router = useRouter();
     const submitForm = async () => {
+      loading.value = true;
       const [status] = await socialsService.createGroup(
         title.value,
         description.value,
       );
       if (status) router.push('/group');
     };
-    return { title, description, submitForm };
+    return { title, description, submitForm, loading };
   },
 });
 </script>
