@@ -9,8 +9,12 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { User } from '@prisma/client';
+import { CurrentUser } from 'src/auth/current-user.decorator';
+import { ApiAuthGuard } from 'src/auth/guards/api-auth.guard';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
@@ -30,6 +34,12 @@ export class UserController {
   @Get()
   async findAll() {
     return await this.userService.findAll();
+  }
+
+  @UseGuards(ApiAuthGuard)
+  @Get('information')
+  getUserInformation(@CurrentUser() user: User) {
+    return user;
   }
 
   @Get(':id')
