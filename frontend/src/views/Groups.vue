@@ -1,6 +1,7 @@
 <template>
   <ion-page>
-    <ion-content>
+    <ion-loading :is-open="isFetching" message="Loading groups..." />
+    <ion-content v-if="!isFetching">
       <ion-toolbar>
         <ion-searchbar
           show-cancel-button="focus"
@@ -70,6 +71,7 @@ import {
   IonItem,
   IonLabel,
   IonList,
+  IonLoading,
   IonPage,
   IonSearchbar,
   IonText,
@@ -77,8 +79,8 @@ import {
   popoverController,
 } from '@ionic/vue';
 import { useHead } from '@vueuse/head';
-import { defineComponent, onMounted, ref } from 'vue';
 import { arrowRedoOutline } from 'ionicons/icons';
+import { defineComponent, onMounted, ref } from 'vue';
 
 export default defineComponent({
   components: {
@@ -86,6 +88,7 @@ export default defineComponent({
     IonContent,
     IonToolbar,
     IonSearchbar,
+    IonLoading,
     IonCard,
     IonFab,
     IonFabButton,
@@ -111,10 +114,12 @@ export default defineComponent({
     const query = ref('');
     const groups = ref<any[]>([]);
     const displayGroups = ref<any[]>([]);
+    const isFetching = ref(true);
     onMounted(async () => {
       const resp = await socialsService.getGroups();
       groups.value = resp.data;
       displayGroups.value = resp.data;
+      isFetching.value = false;
     });
     const filterGroups = (input: Event) => {
       const searchString = (input.target as HTMLInputElement).value;
@@ -141,6 +146,7 @@ export default defineComponent({
     return {
       query,
       groups,
+      isFetching,
       displayGroups,
       filterGroups,
       askInviteString,

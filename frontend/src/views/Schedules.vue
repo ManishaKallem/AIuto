@@ -1,14 +1,13 @@
 <template>
   <ion-page>
-    <ion-content>
+    <ion-loading :is-open="isFetching" message="Loading your schedule..." />
+    <ion-content v-if="!isFetching">
       <div class="date">
         <p style="font-size: large; text-align: center">
           {{ time.day }}
         </p>
         <h1 style="text-align: center">{{ time.date }}</h1>
         <p style="text-align: center">{{ time.month }} {{ time.year }}</p>
-        <!-- Need a method for going from one date to another also need to add arrows-->
-        <!-- cant keep text and icon in a single line-->
       </div>
       <div v-if="schedules.length > 0">
         <ion-card
@@ -66,6 +65,7 @@ import {
   IonFab,
   IonFabButton,
   IonIcon,
+  IonLoading,
   IonPage,
   IonText,
 } from '@ionic/vue';
@@ -80,6 +80,7 @@ export default defineComponent({
     IonCard,
     IonCardContent,
     IonIcon,
+    IonLoading,
     IonText,
     IonFab,
     IonFabButton,
@@ -97,6 +98,7 @@ export default defineComponent({
       ],
     });
     const time = DateTime.now();
+    const isFetching = ref(true);
     onMounted(async () => {
       const fetched = await scheduleService.getSchedules();
       schedules.value = fetched.data.map((element: any) => {
@@ -107,9 +109,11 @@ export default defineComponent({
         element.endTime = endTime.toLocaleString(DateTime.DATETIME_SHORT);
         return element;
       });
+      isFetching.value = false;
     });
     return {
       schedules,
+      isFetching,
       time: {
         day: time.toFormat('EEEE'),
         month: time.toFormat('MMM'),
