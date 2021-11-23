@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "3.2.3",
-    "@types/jest": "^24.0.19",
+    "@types/jest": "24.9.1",
     "@types/luxon": "^2.0.7",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
