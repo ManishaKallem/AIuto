@@ -34,15 +34,10 @@ export class NavigatorService {
     return moodEntry;
   }
 
-  findAll() {
-    return `This action returns all navigator`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} navigator`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} navigator`;
+  async findUserNavigators(user: User) {
+    return await this.prisma.moodEntry.findMany({
+      where: { userId: user.id },
+      orderBy: { on: 'desc' },
+    });
   }
 }

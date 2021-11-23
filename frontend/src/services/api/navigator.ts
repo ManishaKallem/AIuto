@@ -7,4 +7,8 @@ export default new (class {
       mood: mood,
     });
   }
+
+  async getMoodEntries() {
+    return await http.get('/navigator');
+  }
 })();

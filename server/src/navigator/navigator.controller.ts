@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '@prisma/client';
 import { CurrentUser } from 'src/auth/current-user.decorator';
@@ -28,18 +20,9 @@ export class NavigatorController {
     return await this.navigatorService.create(createNavigatorDto, user);
   }
 
+  @UseGuards(ApiAuthGuard)
   @Get()
-  findAll() {
-    return this.navigatorService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.navigatorService.findOne(+id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.navigatorService.remove(+id);
+  findAll(@CurrentUser() user: User) {
+    return this.navigatorService.findUserNavigators(user);
   }
 }

@@ -123,7 +123,8 @@ import {
   IonToolbar,
 } from '@ionic/vue';
 import { useHead } from '@vueuse/head';
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 interface FormInput {
   username: string;
@@ -151,44 +152,8 @@ export default defineComponent({
       email: 'required|min:3|email',
       password: 'required|min:5|max:50',
     },
-    apiErrors: {
-      usernameErrors: [],
-      emailErrors: [],
-      passwordErrors: [],
-    },
   }),
   methods: {
-    async handleRegister(values: FormInput) {
-      this.apiErrors.passwordErrors = [];
-      this.apiErrors.usernameErrors = [];
-      this.apiErrors.emailErrors = [];
-      const [status, resp] = await userService.create(
-        values.email,
-        values.username,
-        values.password,
-      );
-      if (!status) {
-        if (resp.message) this.apiErrors.passwordErrors = resp.message || [];
-        else {
-          this.apiErrors.usernameErrors = resp.resp.usernameErrors || [];
-          this.apiErrors.emailErrors = resp.resp.emailErrors || [];
-        }
-        const alert = await alertController.create({
-          header: 'Fail',
-          message: 'There were some errors in registering with these details',
-          buttons: ['OK'],
-        });
-        alert.present();
-      } else {
-        const alert = await alertController.create({
-          header: 'Success',
-          message: 'Please login with your new account',
-          buttons: ['OK'],
-        });
-        alert.present();
-        this.$router.push({ name: 'auth-login' });
-      }
-    },
     hasErrors(errors: Record<string, string>) {
       const errorKeys = Object.keys(errors);
       if (errorKeys.length > 0) return true;
@@ -205,6 +170,44 @@ export default defineComponent({
         },
       ],
     });
+    const apiErrors = ref({
+      usernameErrors: [],
+      emailErrors: [],
+      passwordErrors: [],
+    });
+    const router = useRouter();
+    const handleRegister = async (values: FormInput) => {
+      apiErrors.value.passwordErrors = [];
+      apiErrors.value.usernameErrors = [];
+      apiErrors.value.emailErrors = [];
+      const [status, resp] = await userService.create(
+        values.email,
+        values.username,
+        values.password,
+      );
+      if (!status) {
+        if (resp.message) apiErrors.value.passwordErrors = resp.message || [];
+        else {
+          apiErrors.value.usernameErrors = resp.resp.usernameErrors || [];
+          apiErrors.value.emailErrors = resp.resp.emailErrors || [];
+        }
+        const alert = await alertController.create({
+          header: 'Fail',
+          message: 'There were some errors in registering with these details',
+          buttons: ['OK'],
+        });
+        alert.present();
+      } else {
+        const alert = await alertController.create({
+          header: 'Success',
+          message: 'Please login with your new account',
+          buttons: ['OK'],
+        });
+        alert.present();
+        router.push({ name: 'auth-login' });
+      }
+    };
+    return { handleRegister, apiErrors };
   },
 });
 </script>
