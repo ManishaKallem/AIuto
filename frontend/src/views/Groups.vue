@@ -115,12 +115,15 @@ export default defineComponent({
     const groups = ref<any[]>([]);
     const displayGroups = ref<any[]>([]);
     const isFetching = ref(true);
-    onMounted(async () => {
+
+    const fetchGroups = async () => {
+      isFetching.value = true;
       const resp = await socialsService.getGroups();
       groups.value = resp.data;
       displayGroups.value = resp.data;
       isFetching.value = false;
-    });
+    };
+    onMounted(async () => await fetchGroups());
     const filterGroups = (input: Event) => {
       const searchString = (input.target as HTMLInputElement).value;
       if (searchString === '') displayGroups.value = groups.value;
@@ -135,13 +138,11 @@ export default defineComponent({
     const askInviteString = async (ev: Event) => {
       const popover = await popoverController.create({
         component: EnterGroupInviteStringVue,
-        cssClass: 'my-custom-class',
         event: ev,
         translucent: true,
       });
       await popover.present();
-      const { role } = await popover.onDidDismiss();
-      console.log('onDidDismiss resolved with role', role);
+      await fetchGroups();
     };
     return {
       query,
