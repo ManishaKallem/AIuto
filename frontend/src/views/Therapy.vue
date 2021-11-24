@@ -32,15 +32,11 @@
           </ion-card-content>
         </ion-card>
       </div>
-      <div style="text-align: center">
-        <ion-button
-          fill="clear"
-          size="large"
-          @click="submit"
-          :disabled="loading"
-        >
+      <div style="text-align: center; margin-bottom: 15px">
+        <ion-button fill="outline" @click="submit" v-if="!loading">
           Submit
         </ion-button>
+        <ion-spinner v-else />
       </div>
     </ion-content>
   </ion-page>
@@ -58,6 +54,7 @@ import {
   IonTextarea,
   IonBackButton,
   IonCardHeader,
+  IonSpinner,
   IonChip,
   IonLabel,
   IonButton,
@@ -75,6 +72,7 @@ export default defineComponent({
     IonPage,
     IonCard,
     IonButton,
+    IonSpinner,
     IonContent,
     IonCardContent,
     IonToolbar,

@@ -13,9 +13,8 @@
           ></ion-back-button>
         </ion-buttons>
         <ion-buttons slot="end">
-          <ion-button type="submit" :disabled="isSubmitting">
-            Create
-          </ion-button>
+          <ion-button type="submit" v-if="!isSubmitting"> Create </ion-button>
+          <ion-spinner v-else />
         </ion-buttons>
       </ion-toolbar>
       <ion-text>
@@ -116,6 +115,7 @@ import {
   IonCard,
   IonHeader,
   IonInput,
+  IonSpinner,
   IonItem,
   IonItemGroup,
   IonLabel,
@@ -139,6 +139,7 @@ export default defineComponent({
     IonItemGroup,
     IonBackButton,
     IonButtons,
+    IonSpinner,
     IonToolbar,
     IonHeader,
     IonLabel,

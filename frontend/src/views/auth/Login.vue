@@ -18,8 +18,9 @@
         <ion-input v-model="password" type="password" required></ion-input>
       </ion-item>
       <ion-item>
-        <div style="padding-left: 35%">
-          <ion-button type="submit" :disabled="loading">Submit</ion-button>
+        <div style="text-align: center; width: 100%">
+          <ion-button type="submit" v-if="!loading">Submit</ion-button>
+          <ion-spinner v-if="loading" />
         </div>
       </ion-item>
     </ion-card>
@@ -46,6 +47,7 @@ import {
   IonItem,
   IonLabel,
   IonToolbar,
+  IonSpinner,
 } from '@ionic/vue';
 import { useHead } from '@vueuse/head';
 import { defineComponent, ref } from 'vue';
@@ -62,6 +64,7 @@ export default defineComponent({
     IonBackButton,
     IonButtons,
     IonHeader,
+    IonSpinner,
   },
   setup() {
     useHead({
