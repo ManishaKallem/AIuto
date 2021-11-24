@@ -1,5 +1,46 @@
 {
   "extends": [
     "config:base"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "separateMajorMinor": "true",
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "lockFileMaintenance",
+        "rollback",
+        "bump"
+      ],
+      "groupName": "devDependencies",
+      "semanticCommitType": "chore",
+      "automerge": true
+    },
+    {
+      "matchDepTypes": [
+        "dependencies"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "lockFileMaintenance",
+        "rollback",
+        "bump"
+      ],
+      "groupName": "dependencies",
+      "semanticCommitType": "fix"
+    }
   ]
 }
