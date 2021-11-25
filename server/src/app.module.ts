@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { JournalModule } from './journal/journal.module';
 import { NavigatorModule } from './navigator/navigator.module';
+import { ScheduleModule as ScheduleModuleApp } from './schedule/schedule.module';
 import { PredictionModule } from './prediction/prediction.module';
 import { SocialModule } from './social/social.module';
 import { UserModule } from './user/user.module';
@@ -36,6 +37,7 @@ import { UserModule } from './user/user.module';
     ScheduleModule,
     SocialModule,
     CoreModule,
+    ScheduleModuleApp,
   ],
   controllers: [],
   providers: [],
