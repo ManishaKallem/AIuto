@@ -19,6 +19,7 @@ export class ScheduleService {
   async getSchedules(user: User) {
     return await this.prisma.schedule.findMany({
       where: { userId: user.id },
+      orderBy: { startTime: 'asc' },
     });
   }
 }
