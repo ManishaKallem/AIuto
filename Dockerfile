@@ -15,5 +15,4 @@ COPY . .
 RUN just build-prod
 ENV NODE_ENV=production \
     CI=1 \
-    GOOGLE_APPLICATION_CREDENTIALS="/key.json" \
-    NODE_OPTIONS="--openssl-legacy-provider"
+    GOOGLE_APPLICATION_CREDENTIALS="/key.json"
