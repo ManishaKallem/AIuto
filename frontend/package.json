@@ -29,7 +29,7 @@
     "luxon": "2.1.1",
     "vee-validate": "4.5.6",
     "vue": "3.2.22",
-    "vue-chart-3": "0.5.11",
+    "vue-chart-3": "3.0.3",
     "vue-router": "4.0.12",
     "vuex": "4.0.2",
     "yup": "0.32.11"
