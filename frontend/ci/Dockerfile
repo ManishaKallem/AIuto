@@ -1,4 +1,6 @@
 FROM node:16 as build-stage
+ARG VUE_APP_API_URL
+ENV VUE_APP_API_URL=${VUE_APP_API_URL}
 WORKDIR /app
 COPY package.json yarn.lock ./
 COPY frontend/package.json ./frontend/package.json
