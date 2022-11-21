@@ -116,7 +116,6 @@ export default defineComponent({
       const [status, resp] = await predictionService.mentalHealthPredict(
         columns.value,
       );
-      console.log(resp);
       if (!status) {
         const alert = await alertController.create({
           header: 'Failure',
