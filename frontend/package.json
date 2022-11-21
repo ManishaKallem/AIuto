@@ -2,11 +2,6 @@
   "name": "aiuto",
   "version": "0.0.1",
   "private": true,
-  "engines": {
-    "node": "16.13.0",
-    "npm": "8.1.0",
-    "yarn": "1.22.1"
-  },
   "scripts": {
     "serve": "vue-cli-service serve --port 3000",
     "build": "vue-cli-service build",
