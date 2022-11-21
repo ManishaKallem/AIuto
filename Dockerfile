@@ -16,3 +16,6 @@ RUN just build-prod
 ENV NODE_ENV=production \
     CI=1 \
     GOOGLE_APPLICATION_CREDENTIALS="/key.json"
+ENTRYPOINT yarn deploy && \
+            echo "${GCP_CREDENTIALS}" > "${GOOGLE_APPLICATION_CREDENTIALS}" && \
+            yarn start
